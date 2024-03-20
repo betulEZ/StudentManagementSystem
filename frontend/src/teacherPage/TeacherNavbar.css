@@ -1,0 +1,18 @@
+.drawer .MuiDrawer-paper {
+    width: 200px;
+    background-color:darkgrey ; /* !important kullanarak diğer stilleri geçersiz kıl */
+    display: flex; /* Flexbox'u etkinleştir */
+    flex-direction: column; /* Sütun yönlendirmesi */
+    align-items: center; /* Öğeleri yatay eksende ortala */
+}
+.drawer .MuiListItemIcon-root,
+.drawer .MuiListItemText-primary {
+    color: white; /* Ikon ve yazıların rengini beyaz yap */
+}
+.drawer .MuiListItem-root {
+    padding: 4px 12px; /* ListItem bileşeninin iç kenar boşluğunu azalt */
+}
+.drawer .MuiListItemIcon-root {
+    min-width: 32px; /* Ikonun minimum genişliğini azalt */
+    margin-right: 4px; /* Sağ kenar boşluğunu azalt */
+}
