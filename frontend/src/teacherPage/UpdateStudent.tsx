@@ -26,7 +26,7 @@ export type Props = {
     changeName: (event: React.ChangeEvent<HTMLInputElement>) => void;
     changeSurname: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
-export default function UpdateStudent(props: Props){
+export default function UpdateStudent(props: Readonly<Props>){
 
     return(
         <> <BootstrapDialog
@@ -51,16 +51,12 @@ export default function UpdateStudent(props: Props){
             </IconButton>
             <DialogContent dividers>
                 <Typography gutterBottom>
-                    <label>
-                        Name:
+                    <label htmlFor={"name"} >Name:</label>
                         <input value={props.name} type="text"  onChange={props.changeName} />
-                    </label>
                 </Typography>
                 <Typography gutterBottom>
-                    <label>
-                        Surname:
+                    <label htmlFor={"surname"}>Surname:</label>
                         <input value={props.surname} type="text" onChange={props.changeSurname} />
-                    </label>
                 </Typography>
             </DialogContent>
             <DialogActions>
