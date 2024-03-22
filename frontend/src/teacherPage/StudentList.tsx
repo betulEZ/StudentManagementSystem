@@ -8,27 +8,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {Button, Dialog, TableCell } from "@mui/material";
-import { styled } from '@mui/material/styles';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import Typography from '@mui/material/Typography';
+import {Button,TableCell } from "@mui/material";
 import React from "react";
+import UpdateStudent from "./UpdateStudent.tsx";
 
 
 const studentService = new StudentService();
 
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-    '& .MuiDialogContent-root': {
-        padding: theme.spacing(2),
-    },
-    '& .MuiDialogActions-root': {
-        padding: theme.spacing(1),
-    },
-}));
+
 export default function StudentList(){
     const [students, setStudents] = useState<Student[]>([]);
     const [open, setOpen] = React.useState(false);
@@ -59,6 +46,7 @@ export default function StudentList(){
         setOpen(true);
         setId(id);
     };
+
     function changeName(event: React.ChangeEvent<HTMLInputElement>) {
         setName(event.target.value);
 
@@ -87,9 +75,10 @@ export default function StudentList(){
         }
         setOpen(false);
     }
-   const handleClose = (): void =>{
-       setOpen(false);
-   }
+    const handleClose = (): void =>{
+        setOpen(false);
+    }
+
 
     return(
         <>
@@ -119,47 +108,16 @@ export default function StudentList(){
                                     <Button variant="outlined" onClick={() => handleOpen(student.id)}>Edit
                                     </Button>
                                     </React.Fragment>
-                                    <BootstrapDialog
-                                        onClose={handleClose}
-                                        aria-labelledby="customized-dialog-title"
-                                        open={open}
-                                    >
-                                        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-                                            Update Student
-                                        </DialogTitle>
-                                        <IconButton
-                                            aria-label="close"
-                                            onClick={handleClose}
-                                            sx={{
-                                                position: 'absolute',
-                                                right: 8,
-                                                top: 8,
-                                                color: (theme) => theme.palette.grey[500],
-                                            }}
-                                        >
-                                            <CloseIcon />
-                                        </IconButton>
-                                        <DialogContent dividers>
-                                            <Typography gutterBottom>
-                                                <label>
-                                                Name:
-                                                <input value={name} type="text"  onChange={changeName} required/>
-                                                </label>
-                                            </Typography>
-                                            <Typography gutterBottom>
-                                                <label>
-                                                    Surname:
-                                                    <input value={surname} type="text" onChange={changeSurname} required/>
-                                                </label>
-                                            </Typography>
-                                        </DialogContent>
-                                        <DialogActions>
-                                            <Button autoFocus onClick={handleSave}>
-                                                Save changes
-                                            </Button>
-                                        </DialogActions>
-                                    </BootstrapDialog>
 
+                                    <UpdateStudent
+                                        open={open}
+                                        name={name}
+                                        surname={surname}
+                                        handleClose={handleClose}
+                                        handleSave={handleSave}
+                                        changeName={changeName}
+                                        changeSurname={changeSurname}
+                                    />
                                 </TableCell>
                                 <TableCell  align="center" onClick={() => handleDelete(student.id)}>
                                     <Button variant="outlined">Delete </Button>
