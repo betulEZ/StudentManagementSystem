@@ -15,18 +15,18 @@ public class HomeworkController {
     private final HomeworkService homeworkService;
 
     @PostMapping("/add")
-    public String addPhoto(@RequestParam("title") String title,
-                           @RequestParam("image") MultipartFile image)
+    public String addFile(@RequestParam("title") String title,
+                           @RequestParam("image") MultipartFile file)
             throws IOException {
-        String id = homeworkService.addPhoto(title, image);
+        String id = homeworkService.addFile(title, file);
         return "redirect:/photos/" + id;
     }
     @GetMapping("/{id}")
-    public String getPhoto(@PathVariable String id, Model model) {
-        Homework photo = homeworkService.getPhoto(id);
-        model.addAttribute("title", photo.getTitle());
+    public String getFile(@PathVariable String id, Model model) {
+        Homework file = homeworkService.getFile(id);
+        model.addAttribute("title", file.getTitle());
         model.addAttribute("image",
-                Base64.getEncoder().encodeToString(photo.getImage().getData()));
+                Base64.getEncoder().encodeToString(file.getFile().getData()));
         return "photos";
     }
 }

@@ -12,17 +12,17 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class HomeworkService {
 
-    private final HomeworkRepository photoRepo;
+    private final HomeworkRepository homeworkRepository;
 
-    public String addPhoto(String title, MultipartFile file) throws IOException {
-        Homework photo = new Homework(title);
-        photo.setImage(
+    public String addFile(String title, MultipartFile file) throws IOException {
+        Homework fileData = new Homework(title);
+        fileData.setFile(
                 new Binary(BsonBinarySubType.BINARY, file.getBytes()));
-        photo = photoRepo.insert(photo); return photo.getId();
+        fileData = homeworkRepository.insert(fileData); return fileData.getId();
     }
 
-    public Homework getPhoto(String id) {
-        return photoRepo.findById(id).orElseThrow();
+    public Homework getFile(String id) {
+        return homeworkRepository.findById(id).orElseThrow();
     }
 
 }
