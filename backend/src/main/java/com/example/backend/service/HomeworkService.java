@@ -1,5 +1,6 @@
 package com.example.backend.service;
 import com.example.backend.model.Homework;
+import com.example.backend.model.Student;
 import com.example.backend.repository.HomeworkRepository;
 import lombok.RequiredArgsConstructor;
 import org.bson.BsonBinarySubType;
@@ -14,6 +15,7 @@ public class HomeworkService {
 
     private final HomeworkRepository homeworkRepository;
 
-
-
+    public Homework saveHomework(Homework homework) {
+        return homeworkRepository.save(homework);
+    }
 }

@@ -7,6 +7,8 @@ import lombok.With;
 import org.bson.types.Binary;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDate;
+
 @Data
 @With
 @NoArgsConstructor
@@ -15,5 +17,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Homework {
     private String id;
     private String title;
-
+    private String description;
+    private LocalDate deadline;
+    private Lesson lesson;
 }
