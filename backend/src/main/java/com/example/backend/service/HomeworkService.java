@@ -14,15 +14,6 @@ public class HomeworkService {
 
     private final HomeworkRepository homeworkRepository;
 
-    public String addFile(String title, MultipartFile file) throws IOException {
-        Homework fileData = new Homework(title);
-        fileData.setFile(
-                new Binary(BsonBinarySubType.BINARY, file.getBytes()));
-        fileData = homeworkRepository.insert(fileData); return fileData.getId();
-    }
 
-    public Homework getFile(String id) {
-        return homeworkRepository.findById(id).orElseThrow();
-    }
 
 }
