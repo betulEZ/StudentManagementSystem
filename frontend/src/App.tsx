@@ -1,6 +1,7 @@
 import {Route, Routes} from "react-router-dom";
 import TeacherHomePage from "./teacherPage/TeacherHomePage";
 import StudentList from "./teacherPage/StudentList.tsx";
+import HomeworkList from "./teacherPage/HomeworkList.tsx";
 
 export default function App() {
 
@@ -12,6 +13,8 @@ export default function App() {
         <Routes>
             <Route path='/teacher' element={<TeacherHomePage/>}/>
             <Route path='/teacher/studentlist' element={<StudentList/>}/>
+            <Route path='/teacher/homework' element={<HomeworkList/>}/>
+
         </Routes>
 
     </>

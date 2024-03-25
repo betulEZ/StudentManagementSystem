@@ -15,9 +15,5 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Homework {
     private String id;
     private String title;
-    private Binary file;
 
-    public Homework(String title) {
-        this.title=title;
-    }
 }
