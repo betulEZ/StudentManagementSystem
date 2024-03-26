@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 import com.example.backend.model.Lesson;
+import com.example.backend.model.LessonDTO;
 import com.example.backend.service.LessonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,8 +15,8 @@ public class LessonController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Lesson saveNewLesson(@RequestBody Lesson lesson) {
-        return lessonService.saveLesson(lesson);
+    public Lesson saveNewLesson(@RequestBody LessonDTO lessonDTO) {
+        return lessonService.saveLesson(lessonDTO);
     }
 
     @GetMapping

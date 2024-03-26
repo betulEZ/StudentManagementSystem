@@ -70,7 +70,6 @@ export default function HomeworkAdd() {
     };
 
     return (
-        <>
             <Box sx={{display: 'flex', justifyContent: 'center'}}>
                 <form onSubmit={handleOnSubmit}>
                     <FormControl sx={{m: 1, width: 300, display: 'flex', justifyContent: 'center'}}>
@@ -100,7 +99,7 @@ export default function HomeworkAdd() {
                             onChange={handleChangeDescription}
                             required
                         />
-                        <label>Deadline</label>
+                        <label htmlFor="deadline">Deadline</label>
                         <TextField
                             type="date"
                             value={formData.deadline.toISOString().split('T')[0]} // Format the date as YYYY-MM-DD for input
@@ -113,6 +112,5 @@ export default function HomeworkAdd() {
                     </FormControl>
                 </form>
             </Box>
-        </>
 );
 }

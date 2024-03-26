@@ -1,7 +1,7 @@
 package com.example.backend.service;
 
 import com.example.backend.model.Lesson;
-import com.example.backend.model.Student;
+import com.example.backend.model.LessonDTO;
 import com.example.backend.repository.LessonRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,8 @@ public class LessonService {
        return lessonRepository.findAll();
     }
 
-    public Lesson saveLesson(Lesson lesson) {
-        return lessonRepository.save(lesson);
+    public Lesson saveLesson(LessonDTO lessonDTO) {
+        Lesson temp=new Lesson(null,lessonDTO.getName(),lessonDTO.getStudentList());
+        return lessonRepository.save(temp);
     }
 }
