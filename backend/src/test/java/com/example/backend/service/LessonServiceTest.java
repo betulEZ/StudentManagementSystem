@@ -3,11 +3,13 @@ package com.example.backend.service;
 import com.example.backend.model.Homework;
 import com.example.backend.model.Lesson;
 import com.example.backend.model.LessonDTO;
+import com.example.backend.model.Student;
 import com.example.backend.repository.HomeworkRepository;
 import com.example.backend.repository.LessonRepository;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,7 +22,9 @@ class LessonServiceTest {
     @Test
     void getAllLessons() {
         // GIVEN
-        Lesson lessonList = new Lesson("101", "Math", null);
+        List<Student> studentList=new ArrayList<>();
+        studentList.add(new Student("1","name","surname",null));
+        Lesson lessonList = new Lesson("101", "Math", studentList);
         List<Lesson> expected=List.of(lessonList);
 
         // WHEN
@@ -37,8 +41,10 @@ class LessonServiceTest {
     @Test
     void saveLesson() {
         // GIVEN
-        Lesson expected=new Lesson("Math101","Math",null);
-        LessonDTO lessonDTO=new LessonDTO("Math",null);
+        List<Student> studentList=new ArrayList<>();
+        studentList.add(new Student("1","name","surname",null));
+        Lesson expected=new Lesson("Math101","Math",studentList);
+        LessonDTO lessonDTO=new LessonDTO("Math",studentList);
 
         // WHEN
         when(lessonRepository.save(new Lesson(lessonDTO))).thenReturn(expected);
