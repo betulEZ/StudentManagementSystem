@@ -1,6 +1,6 @@
 package com.example.backend.controller;
 
-import com.example.backend.repository.HomeworkRepository;
+import com.example.backend.model.Lesson;
 import com.example.backend.repository.LessonRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
+import java.util.List;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
@@ -41,5 +43,21 @@ class LessonControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").isNotEmpty())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Lesson1"));
+    }
+    @Test
+    void getAllLessons() throws Exception {
+       // GIVEN
+        List<Lesson> lessonList = new ArrayList<>();
+        lessonList.add(new Lesson("101", "Math", null));
+
+        for (Lesson lesson : lessonList) {
+            lessonRepository.save(lesson);
+        }
+
+        // WHEN & THEN
+        mvc.perform(MockMvcRequestBuilders.get("/api/lessons"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value("101"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("Math"));
     }
 }

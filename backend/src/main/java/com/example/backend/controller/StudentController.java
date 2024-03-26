@@ -1,8 +1,10 @@
 package com.example.backend.controller;
 
 import com.example.backend.model.Student;
+import com.example.backend.model.StudentDTO;
 import com.example.backend.service.StudentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,8 +16,9 @@ public class StudentController {
     private final StudentService studentService;
 
     @PostMapping
-    public Student saveNewStudent(@RequestBody Student student) {
-        return studentService.saveStudent(student);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Student saveNewStudent(@RequestBody StudentDTO studentDto) {
+        return studentService.saveStudent(studentDto);
     }
     @GetMapping
     public List<Student> getAllStudents(){
