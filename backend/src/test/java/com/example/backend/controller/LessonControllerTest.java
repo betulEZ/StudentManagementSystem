@@ -50,9 +50,7 @@ class LessonControllerTest {
         List<Lesson> lessonList = new ArrayList<>();
         lessonList.add(new Lesson("101", "Math", null));
 
-        for (Lesson lesson : lessonList) {
-            lessonRepository.save(lesson);
-        }
+        lessonRepository.saveAll(lessonList);
 
         // WHEN & THEN
         mvc.perform(MockMvcRequestBuilders.get("/api/lessons"))
