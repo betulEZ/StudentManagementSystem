@@ -2,6 +2,7 @@ package com.example.backend.controller;
 import com.example.backend.model.Lesson;
 import com.example.backend.service.LessonService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public class LessonController {
     private final LessonService lessonService;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Lesson saveNewLesson(@RequestBody Lesson lesson) {
         return lessonService.saveLesson(lesson);
     }
