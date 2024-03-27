@@ -30,8 +30,8 @@ public class StudentController {
     }
 
     @PutMapping("/{id}")
-    public Student update(@PathVariable String id,@RequestBody Student student) {
-        return studentService.update(id, student);
+    public Student update(@PathVariable String id,@RequestBody StudentDTO studentDTO) {
+        return studentService.update(id, studentDTO);
     }
     @DeleteMapping("/{id}")
     public void deleteStudentById(@PathVariable String id){

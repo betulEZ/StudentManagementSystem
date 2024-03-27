@@ -25,11 +25,11 @@ public class StudentService {
         return studentRepository.findById(id).orElseThrow();
     }
 
-    public Student update(String id, Student student) {
+    public Student update(String id, StudentDTO studentDTO) {
         Student temp=studentRepository.findById(id).orElseThrow();
-        temp.setName(student.getName());
-        temp.setSurname(student.getSurname());
-        temp.setLessonList(student.getLessonList());
+        temp.setName(studentDTO.getName());
+        temp.setSurname(studentDTO.getSurname());
+        temp.setLessonList(studentDTO.getLessonList());
         return studentRepository.save(temp);
     }
     public String deleteById(String id) {
