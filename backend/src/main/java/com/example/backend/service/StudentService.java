@@ -1,6 +1,7 @@
 package com.example.backend.service;
 
 import com.example.backend.model.Student;
+import com.example.backend.model.StudentDTO;
 import com.example.backend.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,8 +12,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StudentService {
     private final StudentRepository studentRepository;
-    public Student saveStudent(Student student) {
-        return studentRepository.save(student);
+    public Student saveStudent(StudentDTO studentDto) {
+        Student temp=new Student(null,studentDto.getName(),studentDto.getSurname(),studentDto.getLessonList());
+        return studentRepository.save(temp);
     }
 
     public List<Student> getAllTeachers() {

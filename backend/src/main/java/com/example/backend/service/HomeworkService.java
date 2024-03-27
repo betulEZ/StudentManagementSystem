@@ -1,12 +1,9 @@
 package com.example.backend.service;
 import com.example.backend.model.Homework;
+import com.example.backend.model.HomeworkDTO;
 import com.example.backend.repository.HomeworkRepository;
 import lombok.RequiredArgsConstructor;
-import org.bson.BsonBinarySubType;
-import org.bson.types.Binary;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
@@ -14,6 +11,8 @@ public class HomeworkService {
 
     private final HomeworkRepository homeworkRepository;
 
-
-
+    public Homework saveHomework(HomeworkDTO homeworkDTO) {
+        Homework temp=new Homework(null,homeworkDTO.getTitle(),homeworkDTO.getDescription(),homeworkDTO.getDeadline(),homeworkDTO.getLesson());
+        return homeworkRepository.save(temp);
+    }
 }

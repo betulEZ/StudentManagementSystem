@@ -4,8 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.With;
-import org.bson.types.Binary;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.time.LocalDate;
 
 @Data
 @With
@@ -15,5 +16,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Homework {
     private String id;
     private String title;
-
+    private String description;
+    private LocalDate deadline;
+    private Lesson lesson;
+    public Homework (HomeworkDTO homeworkDTO){
+        this(null, homeworkDTO.getTitle(), homeworkDTO.getDescription(),homeworkDTO.getDeadline(),homeworkDTO.getLesson());
+    }
 }
