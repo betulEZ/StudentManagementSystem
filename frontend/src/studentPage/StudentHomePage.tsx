@@ -24,20 +24,18 @@ export default function StudentHomePage(props : Readonly<Props> ){
             <div style={{textAlign: 'center'}}>
                 <h1>STUDENT</h1>
                 <div className="lesson-container">
-                    {lessons.map((lesson, index) => (
-                        <Card key={index} className="card"  sx={{ backgroundColor: '#f0f0f0' }}>
+                    {lessons.map((lesson) => (
+                        <Card key={lesson.id} className="card"  sx={{ backgroundColor: '#f0f0f0' }}>
                             <CardContent>
                                 <Typography variant="h5" component="div">
                                     {lesson.name}
                                 </Typography>
-
                             </CardContent>
                             <CardActions style={{ justifyContent: 'flex-end' }}>
                                 <Button>Detail</Button>
                             </CardActions>
                         </Card>
                     ))}
-
                 </div>
             </div>
         </>

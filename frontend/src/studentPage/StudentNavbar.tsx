@@ -5,7 +5,6 @@ import {Link} from "react-router-dom";
 export default function StudentNavbar(){
 
     return(
-        <>
             <Box sx={{ flexGrow: 1}}>
                 <AppBar  style={{ backgroundColor: 'darkgrey' }}>
                     <Toolbar>
@@ -18,6 +17,5 @@ export default function StudentNavbar(){
                     </Toolbar>
                 </AppBar>
             </Box>
-        </>
     );
 }
