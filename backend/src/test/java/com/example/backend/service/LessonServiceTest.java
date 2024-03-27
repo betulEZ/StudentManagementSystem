@@ -8,7 +8,9 @@ import com.example.backend.repository.StudentRepository;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -51,5 +53,24 @@ class LessonServiceTest {
 
         // THEN
         assertEquals(expected,result);
+    }
+    @Test
+    void testGetAllLessonsByStudentId() throws Exception {
+        // GIVEN
+        String studentId = "1";
+        Student student = new Student();
+        student.setId(studentId);
+        List<Lesson> lessonList = Arrays.asList(
+                new Lesson(null,"Math",null),
+                new Lesson(null,"Science",null)
+        );
+        student.setLessonList(lessonList);
+
+        // WHEN
+        when(studentRepository.findById(studentId)).thenReturn(Optional.of(student));
+        List<Lesson> result = lessonService.getAllLessonsByStudentId(studentId);
+
+        // THEN
+        assertEquals(lessonList, result);
     }
 }
