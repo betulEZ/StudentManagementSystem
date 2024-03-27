@@ -17,8 +17,8 @@ import static org.mockito.Mockito.*;
 
 class LessonServiceTest {
     private final LessonRepository lessonRepository = mock(LessonRepository.class);
-    private final StudentRepository studentRepository = mock(StudentRepository.class); // Provide StudentRepository as well
-    private final LessonService lessonService = new LessonService(lessonRepository, studentRepository); // Pass both repositories
+    private final StudentRepository studentRepository = mock(StudentRepository.class);
+    private final LessonService lessonService = new LessonService(lessonRepository, studentRepository);
 
     @Test
     void getAllLessons() {

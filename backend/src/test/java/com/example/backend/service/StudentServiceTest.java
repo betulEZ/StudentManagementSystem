@@ -1,14 +1,9 @@
 package com.example.backend.service;
 
-import com.example.backend.model.Lesson;
-import com.example.backend.model.LessonDTO;
 import com.example.backend.model.Student;
 import com.example.backend.model.StudentDTO;
 import com.example.backend.repository.StudentRepository;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
