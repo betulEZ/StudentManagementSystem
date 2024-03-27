@@ -1,5 +1,6 @@
 package com.example.backend.service;
 
+import com.example.backend.exception.StudentNotFoundException;
 import com.example.backend.model.Lesson;
 import com.example.backend.model.LessonDTO;
 import com.example.backend.model.Student;
@@ -29,13 +30,13 @@ public class LessonService {
         return lessonRepository.save(temp);
     }
 
-    public List<Lesson> getAllLessonsByStudentId(String studentId) throws Exception {
+    public List<Lesson> getAllLessonsByStudentId(String studentId) throws StudentNotFoundException {
         Optional<Student> studentOptional = studentRepository.findById(studentId);
         if (studentOptional.isPresent()) {
             Student student = studentOptional.get();
             return new ArrayList<>(student.getLessonList());
         } else {
-            throw new Exception("Student not found with id: " + studentId);
+            throw new StudentNotFoundException("Student not found with id: " + studentId);
         }
     }
 }
