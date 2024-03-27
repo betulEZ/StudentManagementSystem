@@ -2,7 +2,9 @@ package com.example.backend.controller;
 
 import com.example.backend.model.Lesson;
 import com.example.backend.model.Student;
+import com.example.backend.model.StudentDTO;
 import com.example.backend.repository.StudentRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -31,21 +33,18 @@ class StudentControllerTest {
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private ObjectMapper objectMapper;
     @Test
     void saveNewStudent() throws Exception {
         // GIVEN
-        String requestBody = """
-                    {
-                       "name": "Name",
-                        "surname": "Surname"
-                     }
-                     
-                """;
+        StudentDTO requestBody =new StudentDTO("Name","Surname",null);
 
         // WHEN & THEN
         mvc.perform(MockMvcRequestBuilders.post("/api/students")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestBody))
+                        .content(objectMapper.writeValueAsString(requestBody)))
                 .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").isNotEmpty())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Name"))

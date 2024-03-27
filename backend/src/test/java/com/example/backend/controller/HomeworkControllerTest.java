@@ -1,6 +1,10 @@
 package com.example.backend.controller;
 
+import com.example.backend.model.HomeworkDTO;
+import com.example.backend.model.Lesson;
+import com.example.backend.model.LessonDTO;
 import com.example.backend.repository.HomeworkRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -11,6 +15,8 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
@@ -24,30 +30,25 @@ class HomeworkControllerTest {
     @Autowired
     private HomeworkRepository homeworkRepository;
 
+    @Autowired
+    private ObjectMapper objectMapper;
     @Test
     void saveNewHomework() throws Exception {
         // GIVEN
-        String requestBody = """
-                    {
-                       "title": "Homework Title",
-                       "description": "Description of the homework",
-                       "deadline": "2024-04-01",
-                       "lesson": {
-                         "name": "Math"
-                       }
-                     }
-                     
-                """;
+        Lesson lesson=new Lesson(null,"Math",null);
+        LocalDate date = LocalDate.of(2024, 5, 2);
+        HomeworkDTO requestBody =new HomeworkDTO("Homework Title","Description of the homework",date,lesson);
+
 
         // WHEN & THEN
         mvc.perform(MockMvcRequestBuilders.post("/api/homeworks")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestBody))
+                        .content(objectMapper.writeValueAsString(requestBody)))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").isNotEmpty())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("Homework Title"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.description").value("Description of the homework"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.deadline").value("2024-04-01"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.deadline").value("2024-05-02"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.lesson.name").value("Math"));
 
     }
