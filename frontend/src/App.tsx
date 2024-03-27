@@ -3,10 +3,9 @@ import TeacherHomePage from "./teacherPage/TeacherHomePage";
 import StudentList from "./teacherPage/StudentList.tsx";
 import HomeworkAdd from "./teacherPage/HomeworkAdd.tsx";
 import StudentHomePage from "./studentPage/StudentHomePage.tsx";
-import {useState} from "react";
 
 export default function App() {
-    const [studentId,setStudentId] = useState<string>("1");
+    const studentId: string="1";
 
     return (
     <>
