@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -34,9 +35,7 @@ public class LessonService {
         Optional<Student> studentOptional = studentRepository.findById(studentId);
         if (studentOptional.isPresent()) {
             Student student = studentOptional.get();
-            List<Lesson> collect = student.getLessonList().stream()
-                    .collect(Collectors.toList());
-            return collect;
+            return new ArrayList<>(student.getLessonList());
         } else {
             throw new Exception("Student not found with id: " + studentId);
         }

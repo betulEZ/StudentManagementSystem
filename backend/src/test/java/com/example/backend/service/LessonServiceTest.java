@@ -1,15 +1,12 @@
 package com.example.backend.service;
 
-import com.example.backend.model.Homework;
 import com.example.backend.model.Lesson;
 import com.example.backend.model.LessonDTO;
 import com.example.backend.model.Student;
-import com.example.backend.repository.HomeworkRepository;
 import com.example.backend.repository.LessonRepository;
 import com.example.backend.repository.StudentRepository;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
