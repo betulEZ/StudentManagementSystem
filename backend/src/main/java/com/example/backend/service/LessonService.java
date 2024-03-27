@@ -5,14 +5,12 @@ import com.example.backend.model.LessonDTO;
 import com.example.backend.model.Student;
 import com.example.backend.repository.LessonRepository;
 import com.example.backend.repository.StudentRepository;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 
