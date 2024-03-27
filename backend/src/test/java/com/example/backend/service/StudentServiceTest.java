@@ -31,22 +31,4 @@ class StudentServiceTest {
         // THEN
         assertEquals(expected,result);
     }
-
-    @Test
-    void getAllTeachers() {
-        // GIVEN
-
-    }
-
-    @Test
-    void getStudentById() {
-    }
-
-    @Test
-    void update() {
-    }
-
-    @Test
-    void deleteById() {
-    }
 }
