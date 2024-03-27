@@ -23,4 +23,9 @@ public class LessonController {
     public List<Lesson> getAllLessons(){
         return lessonService.getAllLessons();
     }
+
+    @GetMapping("/student/{studentId}")
+    public List<Lesson> getAllLessonsByStudentId(@PathVariable String studentId) throws Exception {
+        return lessonService.getAllLessonsByStudentId(studentId);
+    }
 }

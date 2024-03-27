@@ -6,6 +6,7 @@ import com.example.backend.model.LessonDTO;
 import com.example.backend.model.Student;
 import com.example.backend.repository.HomeworkRepository;
 import com.example.backend.repository.LessonRepository;
+import com.example.backend.repository.StudentRepository;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -16,8 +17,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class LessonServiceTest {
-    private final LessonRepository lessonRepository=mock(LessonRepository.class);
-    private final LessonService lessonService= new LessonService(lessonRepository);
+    private final LessonRepository lessonRepository = mock(LessonRepository.class);
+    private final StudentRepository studentRepository = mock(StudentRepository.class); // Provide StudentRepository as well
+    private final LessonService lessonService = new LessonService(lessonRepository, studentRepository); // Pass both repositories
 
     @Test
     void getAllLessons() {
