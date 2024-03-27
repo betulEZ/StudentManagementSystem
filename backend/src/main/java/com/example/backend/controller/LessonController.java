@@ -1,4 +1,5 @@
 package com.example.backend.controller;
+import com.example.backend.exception.StudentNotFoundException;
 import com.example.backend.model.Lesson;
 import com.example.backend.model.LessonDTO;
 import com.example.backend.service.LessonService;
@@ -22,5 +23,10 @@ public class LessonController {
     @GetMapping
     public List<Lesson> getAllLessons(){
         return lessonService.getAllLessons();
+    }
+
+    @GetMapping("/student/{studentId}")
+    public List<Lesson> getAllLessonsByStudentId(@PathVariable String studentId) throws StudentNotFoundException {
+        return lessonService.getAllLessonsByStudentId(studentId);
     }
 }

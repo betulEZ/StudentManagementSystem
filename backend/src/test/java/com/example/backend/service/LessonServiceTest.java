@@ -1,23 +1,24 @@
 package com.example.backend.service;
 
-import com.example.backend.model.Homework;
 import com.example.backend.model.Lesson;
 import com.example.backend.model.LessonDTO;
 import com.example.backend.model.Student;
-import com.example.backend.repository.HomeworkRepository;
 import com.example.backend.repository.LessonRepository;
+import com.example.backend.repository.StudentRepository;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class LessonServiceTest {
-    private final LessonRepository lessonRepository=mock(LessonRepository.class);
-    private final LessonService lessonService= new LessonService(lessonRepository);
+    private final LessonRepository lessonRepository = mock(LessonRepository.class);
+    private final StudentRepository studentRepository = mock(StudentRepository.class);
+    private final LessonService lessonService = new LessonService(lessonRepository, studentRepository);
 
     @Test
     void getAllLessons() {
@@ -52,5 +53,24 @@ class LessonServiceTest {
 
         // THEN
         assertEquals(expected,result);
+    }
+    @Test
+    void testGetAllLessonsByStudentId() throws Exception {
+        // GIVEN
+        String studentId = "1";
+        Student student = new Student();
+        student.setId(studentId);
+        List<Lesson> lessonList = Arrays.asList(
+                new Lesson(null,"Math",null),
+                new Lesson(null,"Science",null)
+        );
+        student.setLessonList(lessonList);
+
+        // WHEN
+        when(studentRepository.findById(studentId)).thenReturn(Optional.of(student));
+        List<Lesson> result = lessonService.getAllLessonsByStudentId(studentId);
+
+        // THEN
+        assertEquals(lessonList, result);
     }
 }
