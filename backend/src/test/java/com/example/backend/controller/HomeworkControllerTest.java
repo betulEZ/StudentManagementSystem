@@ -28,9 +28,6 @@ class HomeworkControllerTest {
     private MockMvc mvc;
 
     @Autowired
-    private HomeworkRepository homeworkRepository;
-
-    @Autowired
     private ObjectMapper objectMapper;
     @Test
     void saveNewHomework() throws Exception {

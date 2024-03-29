@@ -15,9 +15,11 @@ import TeacherNavbar from "./TeacherNavbar.tsx";
 
 
 const studentService = new StudentService();
+export type Props = {
+    logout():void;
+}
 
-
-export default function StudentList(){
+export default function StudentList(props : Readonly<Props>){
     const [students, setStudents] = useState<Student[]>([]);
     const [open, setOpen] = React.useState(false);
     const [id, setId] = useState('');
@@ -83,7 +85,7 @@ export default function StudentList(){
 
     return(
         <>
-            <TeacherNavbar/>
+            <TeacherNavbar logout={props.logout}/>
             <div className="table">
             <TableContainer component={Paper}>
                 <Table aria-label="simple table">
@@ -119,6 +121,7 @@ export default function StudentList(){
                                         handleSave={handleSave}
                                         changeName={changeName}
                                         changeSurname={changeSurname}
+                                        logout={props.logout}
                                     />
                                 </TableCell>
                                 <TableCell  align="center" onClick={() => handleDelete(student.id)}>

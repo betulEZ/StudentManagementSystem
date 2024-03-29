@@ -26,12 +26,13 @@ export type Props = {
     surname: string;
     changeName: (event: React.ChangeEvent<HTMLInputElement>) => void;
     changeSurname: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    logout(): void;
 }
 export default function UpdateStudent(props: Readonly<Props>){
 
     return(
         <>
-            <TeacherNavbar/>
+            <TeacherNavbar logout={props.logout}/>
             <BootstrapDialog
             onClose={props.handleClose}
             aria-labelledby="customized-dialog-title"

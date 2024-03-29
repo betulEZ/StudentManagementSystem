@@ -72,8 +72,8 @@ export default function App() {
                 <Route path={"/register"} element={<RegisterPage />} />
                 <Route path={"/login"} element={<LoginPage fetchMe={fetchMe} />} />
                 <Route path="/teacher" element={appUser?.role === "TEACHER" ? <TeacherHomePage  logout={logout}/> : null} />
-                <Route path="/teacher/studentlist" element={<StudentList />} />
-                <Route path="/teacher/homework" element={<HomeworkAdd />} />
+                <Route path="/teacher/studentlist" element={<StudentList logout={logout}/>}  />
+                <Route path="/teacher/homework" element={<HomeworkAdd logout={logout}/>}  />
                 <Route path={'/student/:studentId'} element={<StudentHomePage studentId={appUser?.studentId ?? ''} logout={logout}/>} />
 
             </Routes>
