@@ -6,7 +6,7 @@ type LoginPageProps = {
     fetchMe: () => void;
 }
 
-export default function LoginPage(props: LoginPageProps) {
+export default function LoginPage(props : Readonly<LoginPageProps>) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 

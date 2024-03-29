@@ -47,7 +47,6 @@ export default function App() {
     }
 
     return (
-        <>
             <Routes>
                 <Route path={"/"} element={(
                     <>
@@ -78,6 +77,5 @@ export default function App() {
                 <Route path={'/student/:studentId'} element={<StudentHomePage studentId={appUser?.studentId ?? ''} logout={logout}/>} />
 
             </Routes>
-        </>
     );
 }
