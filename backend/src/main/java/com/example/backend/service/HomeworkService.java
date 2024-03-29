@@ -5,6 +5,8 @@ import com.example.backend.repository.HomeworkRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class HomeworkService {
@@ -14,5 +16,9 @@ public class HomeworkService {
     public Homework saveHomework(HomeworkDTO homeworkDTO) {
         Homework temp=new Homework(null,homeworkDTO.getTitle(),homeworkDTO.getDescription(),homeworkDTO.getDeadline(),homeworkDTO.getLesson());
         return homeworkRepository.save(temp);
+    }
+
+    public List<Homework> getAllHomeworkByLessonId(String lessonId) {
+        return homeworkRepository.findByLessonId(lessonId);
     }
 }
