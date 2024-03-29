@@ -20,7 +20,9 @@ public class AppUser {
     private String email;
     private String avatarUrl;
     private AppUserRole role;
-
+    private String studentId;
+    private String name;
+    private String surname;
     public AppUser fromDto(AppUserDto appUserDto, String password) {
         return new AppUser(
                 null,
@@ -28,7 +30,10 @@ public class AppUser {
                 password,
                 appUserDto.email(),
                 appUserDto.avatarUrl(),
-                AppUserRole.TEACHER
+                AppUserRole.USER,
+                null,
+                appUserDto.name(),
+                appUserDto.surname()
         );
     }
 }

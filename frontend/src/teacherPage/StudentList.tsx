@@ -11,6 +11,7 @@ import Paper from '@mui/material/Paper';
 import {Button,TableCell } from "@mui/material";
 import React from "react";
 import UpdateStudent from "./UpdateStudent.tsx";
+import TeacherNavbar from "./TeacherNavbar.tsx";
 
 
 const studentService = new StudentService();
@@ -82,6 +83,7 @@ export default function StudentList(){
 
     return(
         <>
+            <TeacherNavbar/>
             <div className="table">
             <TableContainer component={Paper}>
                 <Table aria-label="simple table">

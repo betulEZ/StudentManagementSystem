@@ -18,6 +18,7 @@ public class Student {
     private String name;
     private String surname;
     private List<Lesson> lessonList;
+
     public Student (StudentDTO studentDTO){
         this(null, studentDTO.getName(),studentDTO.getSurname(),studentDTO.getLessonList());
     }

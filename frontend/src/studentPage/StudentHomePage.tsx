@@ -6,7 +6,8 @@ import {Button, Card, CardActions, CardContent} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import './StudentHomePage.css';
 export type Props = {
-    studentId: string
+    studentId: string,
+    logout():void
 };
 const lessonService=new LessonService();
 export default function StudentHomePage(props : Readonly<Props> ){
@@ -20,7 +21,7 @@ export default function StudentHomePage(props : Readonly<Props> ){
 
     return(
         <>
-            <StudentNavbar/>
+            <StudentNavbar  studentId={props?.studentId ?? ''} logout={props.logout} />
             <div style={{textAlign: 'center'}}>
                 <h1>STUDENT</h1>
                 <div className="lesson-container">

@@ -1,9 +1,12 @@
 import TeacherNavbar from "./TeacherNavbar.tsx";
-export default function TeacherHomePage(){
+export type Props = {
+    logout():void
+};
+export default function TeacherHomePage(props : Readonly<Props>){
 
     return(
         <>
-            <TeacherNavbar/>
+            <TeacherNavbar logout={props.logout}/>
 
         </>
     );

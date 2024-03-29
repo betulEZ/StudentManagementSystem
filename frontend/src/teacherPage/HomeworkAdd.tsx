@@ -13,6 +13,7 @@ import {Lesson} from "../types/Lesson.ts";
 import {useState, useEffect, ChangeEvent, FormEvent} from "react";
 import {Homework} from "../types/Homework.ts";
 import HomeworkService from "../service/HomeworkService.ts";
+import TeacherNavbar from "./TeacherNavbar.tsx";
 
 const lessonService = new LessonService();
 const homeworkService = new HomeworkService();
@@ -70,6 +71,7 @@ export default function HomeworkAdd() {
     };
 
     return (
+        <><TeacherNavbar/>
             <Box sx={{display: 'flex', justifyContent: 'center'}}>
                 <form onSubmit={handleOnSubmit}>
                     <FormControl sx={{m: 1, width: 300, display: 'flex', justifyContent: 'center'}}>
@@ -112,5 +114,6 @@ export default function HomeworkAdd() {
                     </FormControl>
                 </form>
             </Box>
+        </>
 );
 }

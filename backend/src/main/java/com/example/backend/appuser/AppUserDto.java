@@ -4,6 +4,8 @@ public record AppUserDto(
         String username,
         String password,
         String email,
-        String avatarUrl
+        String avatarUrl,
+        String name,
+        String surname
 ) {
 }

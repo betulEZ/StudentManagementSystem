@@ -4,7 +4,8 @@ public record AppUserResponse(
         String username,
         String email,
         String avatarUrl,
-        AppUserRole role
+        AppUserRole role,
+        String studentId
 ) {
     public static AppUserResponse fromAppUser(AppUser appUser) {
         return new AppUserResponse(
@@ -12,7 +13,8 @@ public record AppUserResponse(
                 appUser.getUsername(),
                 appUser.getEmail(),
                 appUser.getAvatarUrl(),
-                appUser.getRole()
+                appUser.getRole(),
+                appUser.getStudentId()
         );
     }
 }
