@@ -46,7 +46,7 @@ class AppUserControllerTest {
 
     }
     @Test
-    public void testHelloAdminEndpoint() throws Exception {
+    void testHelloAdminEndpoint() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/api/users/role-admin")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isForbidden());
