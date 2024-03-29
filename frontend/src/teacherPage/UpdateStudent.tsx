@@ -7,6 +7,7 @@ import DialogActions from "@mui/material/DialogActions";
 import {Button, Dialog} from "@mui/material";
 import React from "react";
 import {styled} from "@mui/material/styles";
+import TeacherNavbar from "./TeacherNavbar.tsx";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -29,7 +30,9 @@ export type Props = {
 export default function UpdateStudent(props: Readonly<Props>){
 
     return(
-        <> <BootstrapDialog
+        <>
+            <TeacherNavbar/>
+            <BootstrapDialog
             onClose={props.handleClose}
             aria-labelledby="customized-dialog-title"
             open={props.open}
