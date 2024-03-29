@@ -18,7 +18,10 @@ import TeacherNavbar from "./TeacherNavbar.tsx";
 const lessonService = new LessonService();
 const homeworkService = new HomeworkService();
 
-export default function HomeworkAdd() {
+export type Props = {
+    logout():void;
+}
+export default function HomeworkAdd(props : Readonly<Props>) {
     const [lessons, setLessons] = useState<Lesson[]>([]);
     const [selectedLesson,setSelectedLesson]=useState<Lesson>({id: '', name: '' ,studentList:[]});
     const [formData, setFormData] = useState<Homework>({
@@ -71,7 +74,7 @@ export default function HomeworkAdd() {
     };
 
     return (
-        <><TeacherNavbar/>
+        <><TeacherNavbar logout={props.logout}/>
             <Box sx={{display: 'flex', justifyContent: 'center'}}>
                 <form onSubmit={handleOnSubmit}>
                     <FormControl sx={{m: 1, width: 300, display: 'flex', justifyContent: 'center'}}>

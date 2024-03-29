@@ -39,7 +39,7 @@ export default function TeacherNavbar(props : Readonly<Props>){
                         </ListItemIcon>
                         <ListItemText primary="Homework"/>
                     </ListItem>
-                    <Button onClick={handleLogoutClick} >Logout</Button>
+                    <Button onClick={handleLogoutClick}>Logout</Button>
                 </List>
             </Drawer>
 
