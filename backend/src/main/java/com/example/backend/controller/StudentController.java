@@ -1,6 +1,5 @@
 package com.example.backend.controller;
 
-import com.example.backend.model.Lesson;
 import com.example.backend.model.LessonDTO;
 import com.example.backend.model.Student;
 import com.example.backend.model.StudentDTO;
