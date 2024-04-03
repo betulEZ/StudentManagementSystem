@@ -44,25 +44,21 @@ public class StudentService {
 
     public Student addLesson(String id, LessonDTO lessonDto) {
         Student temp = studentRepository.findById(id).orElseThrow();
-
-        List<Lesson> lessonList = temp.getLessonList();
-
-        boolean lessonExists = lessonList.stream()
-                .anyMatch(lesson -> lesson.getName().equals(lessonDto.getName()));
-
-        if (!lessonExists) {
-            Lesson lesson = new Lesson();
-            lesson.setName(lessonDto.getName());
-            lesson.setStudentList(lessonDto.getStudentList());
-
-            temp.getLessonList().add(lesson);
-            return studentRepository.save(temp);
-        } else {
-            throw new IllegalArgumentException("A course with the same name already exists");
+         List<Lesson> lessons=lessonRepository.findAll();
+        Lesson lesson = new Lesson();
+        for (Lesson existingLesson : lessons) {
+            if (existingLesson.getName().equals(lessonDto.getName())) {
+                lesson.setId(existingLesson.getId());
+                break;
+            }
         }
+         lesson.setName(lessonDto.getName());
+         lesson.setStudentList(lessonDto.getStudentList());
+
+         temp.getLessonList().add(lesson);
+         return studentRepository.save(temp);
+
     }
-
-
 
     public void deleteLessonById(String id, LessonDTO lessonDto) {
         Student temp = studentRepository.findById(id).orElseThrow();
