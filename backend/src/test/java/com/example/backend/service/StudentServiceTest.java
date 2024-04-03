@@ -82,6 +82,27 @@ class StudentServiceTest {
         assertEquals(1, updatedStudent.getLessonList().size());
         assertEquals("Math", updatedStudent.getLessonList().get(0).getName());
     }
+    @Test
+    void testDeleteLessonById() {
+        // GIVEN
+        String studentId = "1";
+        LessonDTO lessonDto = new LessonDTO("Math", null);
+        Student existingStudent = new Student(studentId, "John", "Doe", new ArrayList<>());
+        Lesson lesson = new Lesson(lessonDto);
+        existingStudent.getLessonList().add(lesson);
+
+        when(studentRepository.findById(studentId)).thenReturn(Optional.of(existingStudent));
+        when(lessonRepository.findAll()).thenReturn(existingStudent.getLessonList());
+
+        // WHEN
+        studentService.deleteLessonById(studentId, lessonDto);
+
+        // THEN
+        verify(studentRepository, times(1)).findById(studentId);
+        verify(studentRepository, times(1)).save(existingStudent);
+        assertEquals(0, existingStudent.getLessonList().size());
+    }
+
 
 
 }
