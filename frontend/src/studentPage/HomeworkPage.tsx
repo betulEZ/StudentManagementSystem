@@ -11,7 +11,7 @@ export type Props = {
     logout():void
 };
 export default function HomeworkPage(props : Readonly<Props>){
-    const [homework, setHomeworks] = useState<Homework[]>([]);
+    const [homeworks, setHomeworks] = useState<Homework[]>([]);
     const [lessons, setLessons]=useState<Lesson[]>([]);
     const { lessonId } = useParams();
 
@@ -44,7 +44,7 @@ export default function HomeworkPage(props : Readonly<Props>){
                     </tr>
                     </thead>
                     <tbody>
-                    {homework.map((hw) => (
+                    {homeworks.map((hw) => (
                         <tr key={hw.id}>
                             <td>{hw.title}</td>
                             <td>{hw.description}</td>

@@ -32,20 +32,24 @@ export default function StudentHomePage(props : Readonly<Props>){
     }, [props.studentId]);
 
     useEffect(() => {
+        const fetchHomeworks = async (lesson: Lesson) => {
+            try {
+                const response = await homeworkService.getHomeworkByLessonId(lesson.id);
+                setHomeworks((prevHomeworks) => [...prevHomeworks, ...response.data]);
+                setHomeworkCounts((prevCounts) => ({
+                    ...prevCounts,
+                    [lesson.id]: response.data.length
+                }));
+            } catch (error) {
+                console.error(`Error fetching homework for lesson ${lesson.id}:`, error);
+            }
+        };
+
         lessons.forEach((lesson) => {
-            homeworkService.getHomeworkByLessonId(lesson.id)
-                .then((response) => {
-                    setHomeworks((prevHomeworks) => [...prevHomeworks, ...response.data]);
-                    setHomeworkCounts((prevCounts) => ({
-                        ...prevCounts,
-                        [lesson.id]: response.data.length
-                    }));
-                })
-                .catch((error) => {
-                    console.error(`Error fetching homework for lesson ${lesson.id}:`, error);
-                });
+            fetchHomeworks(lesson);
         });
-    }, [lessons])
+    }, [lessons]);
+
     async function handleLessonDelete(lesson: Lesson) {
         try {
         if(lesson){
