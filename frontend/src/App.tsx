@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import RegisterPage from "./RegisterPage.tsx";
 import LoginPage from "./LoginPage.tsx";
+import HomeworkPage from "./studentPage/HomeworkPage.tsx";
 
 type AppUser = {
     id: string,
@@ -75,6 +76,7 @@ export default function App() {
                 <Route path="/teacher/studentlist" element={<StudentList logout={logout}/>}  />
                 <Route path="/teacher/homework" element={<HomeworkAdd logout={logout}/>}  />
                 <Route path={'/student/:studentId'} element={<StudentHomePage studentId={appUser?.studentId ?? ''} logout={logout}/>} />
+                <Route path={'/homeworks/:lessonId'} element={<HomeworkPage studentId={appUser?.studentId ?? ''} logout={logout}/>} />
 
             </Routes>
     );

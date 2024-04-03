@@ -131,4 +131,52 @@ class StudentControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
     }
+    @Test
+    void deleteLessonStudentById() throws Exception {
+        // GIVEN
+        String studentId = "1";
+
+        Lesson lesson = new Lesson();
+        lesson.setId("1");
+        lesson.setName("Subject");
+        lesson.setStudentList(new ArrayList<Student>());
+        List<Lesson>lessonList=new ArrayList<>();
+        lessonList.add(lesson);
+        Student student=new Student(studentId,"name","surname",lessonList);
+        studentRepository.save(student);
+
+        // WHEN & THEN
+        mvc.perform(MockMvcRequestBuilders.delete("/api/students/1/deleteLesson")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsString(lesson)))
+                .andExpect(status().isOk())
+                .andReturn();
+    }
+    @Test
+    void addLessonStudentById() throws Exception {
+        // GIVEN
+        String studentId = "1";
+
+        Student student = new Student();
+        student.setId(studentId);
+        student.setName("Name");
+        student.setSurname("Surname");
+        student.setLessonList(new ArrayList<>());
+        studentRepository.save(student);
+
+        Lesson lesson = new Lesson();
+        lesson.setId("2");
+        lesson.setName("Object");
+        lesson.setStudentList(new ArrayList<>());
+
+        // WHEN & THEN
+        mvc.perform(MockMvcRequestBuilders.put("/api/students/{id}/addLesson", studentId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsString(lesson)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(content().json("""
+                   {"id":"1","name":"Name","surname":"Surname","lessonList":[{"id":"2","name":"Object","studentList":[]}]}
+                    """));
+    }
+
 }

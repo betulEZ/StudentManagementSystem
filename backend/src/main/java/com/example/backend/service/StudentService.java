@@ -1,5 +1,6 @@
 package com.example.backend.service;
 
+import com.example.backend.model.Lesson;
 import com.example.backend.model.Student;
 import com.example.backend.model.StudentDTO;
 import com.example.backend.repository.StudentRepository;
@@ -35,5 +36,17 @@ public class StudentService {
     public String deleteById(String id) {
         studentRepository.deleteById(id);
         return "Student with ID: " + id + " deleted.";
+    }
+
+    public Student addLesson(String id, Lesson lesson) {
+        Student temp=studentRepository.findById(id).orElseThrow();
+        temp.getLessonList().add(lesson);
+        return  studentRepository.save(temp);
+    }
+
+    public void deleteLessonById(String id, Lesson lesson) {
+        Student temp=studentRepository.findById(id).orElseThrow();
+        temp.getLessonList().remove(lesson);
+        studentRepository.save(temp);
     }
 }
