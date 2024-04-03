@@ -1,10 +1,13 @@
 package com.example.backend.service;
 
 import com.example.backend.model.Lesson;
+import com.example.backend.model.LessonDTO;
 import com.example.backend.model.Student;
 import com.example.backend.model.StudentDTO;
+import com.example.backend.repository.LessonRepository;
 import com.example.backend.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StudentService {
     private final StudentRepository studentRepository;
+    private final LessonRepository lessonRepository;
     public Student saveStudent(StudentDTO studentDto) {
         Student temp=new Student(null,studentDto.getName(),studentDto.getSurname(),studentDto.getLessonList());
         return studentRepository.save(temp);
@@ -38,15 +42,40 @@ public class StudentService {
         return "Student with ID: " + id + " deleted.";
     }
 
-    public Student addLesson(String id, Lesson lesson) {
-        Student temp=studentRepository.findById(id).orElseThrow();
-        temp.getLessonList().add(lesson);
-        return  studentRepository.save(temp);
+    public Student addLesson(String id, LessonDTO lessonDto) {
+        Student temp = studentRepository.findById(id).orElseThrow();
+
+        List<Lesson> lessonList = temp.getLessonList();
+
+        boolean lessonExists = lessonList.stream()
+                .anyMatch(lesson -> lesson.getName().equals(lessonDto.getName()));
+
+        if (!lessonExists) {
+            Lesson lesson = new Lesson();
+            lesson.setName(lessonDto.getName());
+            lesson.setStudentList(lessonDto.getStudentList());
+
+            temp.getLessonList().add(lesson);
+            return studentRepository.save(temp);
+        } else {
+            throw new IllegalArgumentException("A course with the same name already exists");
+        }
     }
 
-    public void deleteLessonById(String id, Lesson lesson) {
-        Student temp=studentRepository.findById(id).orElseThrow();
-        temp.getLessonList().remove(lesson);
+
+
+    public void deleteLessonById(String id, LessonDTO lessonDto) {
+        Student temp = studentRepository.findById(id).orElseThrow();
+
+        List<Lesson> lessonList = lessonRepository.findAll();
+
+        Lesson lessonToRemove = lessonList.stream()
+                .filter(lesson -> lesson.getName().equals(lessonDto.getName()))
+                .findFirst()
+                .orElseThrow();
+
+        temp.getLessonList().remove(lessonToRemove);
         studentRepository.save(temp);
     }
+
 }

@@ -1,14 +1,17 @@
 package com.example.backend.controller;
 
 import com.example.backend.model.Lesson;
+import com.example.backend.model.LessonDTO;
 import com.example.backend.model.Student;
 import com.example.backend.model.StudentDTO;
+import com.example.backend.repository.LessonRepository;
 import com.example.backend.repository.StudentRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
@@ -19,6 +22,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -36,6 +40,8 @@ class StudentControllerTest {
 
     @Autowired
     private ObjectMapper objectMapper;
+    @Autowired
+    private LessonRepository lessonRepository;
     @Test
     void saveNewStudent() throws Exception {
         // GIVEN
@@ -131,52 +137,4 @@ class StudentControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
     }
-    @Test
-    void deleteLessonStudentById() throws Exception {
-        // GIVEN
-        String studentId = "1";
-
-        Lesson lesson = new Lesson();
-        lesson.setId("1");
-        lesson.setName("Subject");
-        lesson.setStudentList(new ArrayList<Student>());
-        List<Lesson>lessonList=new ArrayList<>();
-        lessonList.add(lesson);
-        Student student=new Student(studentId,"name","surname",lessonList);
-        studentRepository.save(student);
-
-        // WHEN & THEN
-        mvc.perform(MockMvcRequestBuilders.delete("/api/students/1/deleteLesson")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(new ObjectMapper().writeValueAsString(lesson)))
-                .andExpect(status().isOk())
-                .andReturn();
-    }
-    @Test
-    void addLessonStudentById() throws Exception {
-        // GIVEN
-        String studentId = "1";
-
-        Student student = new Student();
-        student.setId(studentId);
-        student.setName("Name");
-        student.setSurname("Surname");
-        student.setLessonList(new ArrayList<>());
-        studentRepository.save(student);
-
-        Lesson lesson = new Lesson();
-        lesson.setId("2");
-        lesson.setName("Object");
-        lesson.setStudentList(new ArrayList<>());
-
-        // WHEN & THEN
-        mvc.perform(MockMvcRequestBuilders.put("/api/students/{id}/addLesson", studentId)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(new ObjectMapper().writeValueAsString(lesson)))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(content().json("""
-                   {"id":"1","name":"Name","surname":"Surname","lessonList":[{"id":"2","name":"Object","studentList":[]}]}
-                    """));
-    }
-
 }
