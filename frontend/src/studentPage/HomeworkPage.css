@@ -1,9 +1,13 @@
 .container {
     text-align: center;
+    margin: 0 auto;
+    width: 80%;
 }
 
 table {
-    margin: auto; /* Tabloyu merkeze hizalama */
+    margin: auto;
+    border-collapse: collapse;
+    width: 80%;
 }
 
 th, td {
@@ -14,18 +18,6 @@ th {
     background-color: #f2f2f2;
 }
 
-/* Opsiyonel: Tablo sınırlarını ve kenar boşluklarını tanımlama */
-table {
-    border-collapse: collapse;
-    width: 80%; /* Tablo genişliğini ayarlama */
-}
-
-/* Opsiyonel: Tablo satırlarını renklendirme */
 tbody tr:nth-child(even) {
     background-color: #f2f2f2;
-}
-.container {
-    margin: 0 auto; /* Merkeze hizalama */
-    width: 80%; /* İçeriğin genişliği */
-    text-align: center; /* İçeriğin ortalanması */
 }

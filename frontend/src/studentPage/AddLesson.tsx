@@ -31,8 +31,7 @@ export default function AddLesson(props: Readonly<Props>){
 
 
     return(
-        <>
-            <BootstrapDialog
+         <BootstrapDialog
                 onClose={props.handleCloseWindow}
                 aria-labelledby="customized-dialog-title"
                 open={props.open}
@@ -74,6 +73,5 @@ export default function AddLesson(props: Readonly<Props>){
                 </DialogActions>
             </BootstrapDialog>
 
-        </>
     );
 }

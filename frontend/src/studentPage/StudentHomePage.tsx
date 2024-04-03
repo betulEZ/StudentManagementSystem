@@ -1,8 +1,8 @@
 import StudentNavbar from "./StudentNavbar.tsx";
 import LessonService from "../service/LessonService.ts";
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {Lesson} from "../types/Lesson.ts";
-import {Badge, Card, CardActions, CardContent} from "@mui/material";
+import {Badge, Card, CardContent} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import {Link} from "react-router-dom";
 import './StudentHomePage.css';
