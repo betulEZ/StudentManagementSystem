@@ -34,7 +34,7 @@ public class StudentController {
     public Student update(@PathVariable String id,@RequestBody StudentDTO studentDTO) {
         return studentService.update(id, studentDTO);
     }
-    @PutMapping("/{id}/addLesson")
+    @PutMapping("/{id}/add-lesson")
     public Student addLesson(@PathVariable String id,@RequestBody LessonDTO lessonDto) {
         return studentService.addLesson(id, lessonDto);
     }
@@ -42,7 +42,7 @@ public class StudentController {
     public void deleteStudentById(@PathVariable String id){
         studentService.deleteById(id);
     }
-    @DeleteMapping("/{id}/deleteLesson")
+    @DeleteMapping("/{id}/delete-lesson")
     public void deleteLessonStudentById(@PathVariable String id,@RequestBody LessonDTO  lessonDto){
         studentService.deleteLessonById(id,lessonDto);
     }

@@ -62,7 +62,7 @@ export default function StudentNavbar(props : Readonly<Props>, ){
     }
     const handleUpdate = async () => {
         try {
-            const response = await axios.put(`/api/students/${props.studentId}/addLesson`, formData);
+            const response = await axios.put(`/api/students/${props.studentId}/add-lesson`, formData);
             props.setLessons(response.data.lessonList);
             console.log('Lesson added successfully:', response.data);
             setOpen(false);

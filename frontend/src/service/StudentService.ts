@@ -19,8 +19,5 @@ export default class StudentService{
     deleteStudents(id: string) {
         return axios.delete(`/api/students/${id}`);
     }
-    addLessonByStudentId(id: string,lesson: Lesson ) {
-        return axios.put(`/api/students/${id}/addLesson`,lesson);
-    }
 
 }

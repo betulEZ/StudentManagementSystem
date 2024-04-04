@@ -53,7 +53,7 @@ export default function StudentHomePage(props : Readonly<Props>){
     async function handleLessonDelete(lesson: Lesson) {
         try {
         if(lesson){
-            const response = await axios.delete(`/api/students/${props.studentId}/deleteLesson`, { data: lesson });
+            const response = await axios.delete(`/api/students/${props.studentId}/delete-lesson`, { data: lesson });
             console.log('Lesson deleted successfully:', response.data);
             const updatedLessons = lessons.filter(item => item.id !== lesson.id);
             setLessons(updatedLessons);
