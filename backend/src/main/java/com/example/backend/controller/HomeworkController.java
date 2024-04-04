@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RequiredArgsConstructor
 @RestController
@@ -16,5 +18,8 @@ public class HomeworkController {
     @ResponseStatus(HttpStatus.CREATED)
     public Homework saveNewHomework(@RequestBody HomeworkDTO homeworkDTO) {return homeworkService.saveHomework(homeworkDTO);
     }
-
+    @GetMapping("/{lessonId}")
+    public List<Homework> getHomeworkByLessonId(@PathVariable String lessonId) {
+        return homeworkService.getAllHomeworkByLessonId(lessonId);
+    }
 }

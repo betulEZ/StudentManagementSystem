@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 
 import com.example.backend.model.Lesson;
+import com.example.backend.model.LessonDTO;
 import com.example.backend.model.Student;
 import com.example.backend.model.StudentDTO;
 import com.example.backend.repository.StudentRepository;
@@ -17,8 +18,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -131,4 +132,5 @@ class StudentControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
     }
+
 }

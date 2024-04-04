@@ -1,20 +1,23 @@
 package com.example.backend.service;
 
 import com.example.backend.model.Lesson;
+import com.example.backend.model.LessonDTO;
 import com.example.backend.model.Student;
 import com.example.backend.model.StudentDTO;
+import com.example.backend.repository.LessonRepository;
 import com.example.backend.repository.StudentRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class StudentServiceTest {
     private final StudentRepository studentRepository=mock(StudentRepository.class);
-    private final StudentService studentService=new StudentService(studentRepository);
+    private final LessonRepository lessonRepository=mock(LessonRepository.class);;
+    private final StudentService studentService=new StudentService(studentRepository,lessonRepository);
 
     @Test
     void saveStudent() {
@@ -61,4 +64,45 @@ class StudentServiceTest {
         verify(studentRepository, times(1)).deleteById(studentId);
         assertEquals("Student with ID: " + studentId + " deleted.", result);
     }
+    @Test
+    void testAddLesson_UniqueLesson() {
+        // GIVEN
+        String studentId = "1";
+        LessonDTO lessonDto = new LessonDTO("Math", null);
+        Student existingStudent = new Student(studentId, "John", "Doe", new ArrayList<>());
+
+        when(studentRepository.findById(studentId)).thenReturn(Optional.of(existingStudent));
+        when(studentRepository.save(any(Student.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        // WHEN
+        Student updatedStudent = studentService.addLesson(studentId, lessonDto);
+
+        // THEN
+        assertNotNull(updatedStudent);
+        assertEquals(1, updatedStudent.getLessonList().size());
+        assertEquals("Math", updatedStudent.getLessonList().get(0).getName());
+    }
+    @Test
+    void testDeleteLessonById() {
+        // GIVEN
+        String studentId = "1";
+        LessonDTO lessonDto = new LessonDTO("Math", null);
+        Student existingStudent = new Student(studentId, "John", "Doe", new ArrayList<>());
+        Lesson lesson = new Lesson(lessonDto);
+        existingStudent.getLessonList().add(lesson);
+
+        when(studentRepository.findById(studentId)).thenReturn(Optional.of(existingStudent));
+        when(lessonRepository.findAll()).thenReturn(existingStudent.getLessonList());
+
+        // WHEN
+        studentService.deleteLessonById(studentId, lessonDto);
+
+        // THEN
+        verify(studentRepository, times(1)).findById(studentId);
+        verify(studentRepository, times(1)).save(existingStudent);
+        assertEquals(0, existingStudent.getLessonList().size());
+    }
+
+
+
 }

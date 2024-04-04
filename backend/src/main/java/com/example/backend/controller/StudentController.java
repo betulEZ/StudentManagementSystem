@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 
+import com.example.backend.model.LessonDTO;
 import com.example.backend.model.Student;
 import com.example.backend.model.StudentDTO;
 import com.example.backend.service.StudentService;
@@ -33,8 +34,16 @@ public class StudentController {
     public Student update(@PathVariable String id,@RequestBody StudentDTO studentDTO) {
         return studentService.update(id, studentDTO);
     }
+    @PutMapping("/{id}/add-lesson")
+    public Student addLesson(@PathVariable String id,@RequestBody LessonDTO lessonDto) {
+        return studentService.addLesson(id, lessonDto);
+    }
     @DeleteMapping("/{id}")
     public void deleteStudentById(@PathVariable String id){
         studentService.deleteById(id);
+    }
+    @DeleteMapping("/{id}/delete-lesson")
+    public void deleteLessonStudentById(@PathVariable String id,@RequestBody LessonDTO  lessonDto){
+        studentService.deleteLessonById(id,lessonDto);
     }
 }
