@@ -3,7 +3,7 @@ import React, {ChangeEvent, FormEvent, useState} from "react";
 import {AppUser} from "../types/AppUser.ts";
 import StudentService from "../service/StudentService.ts";
 import {Student} from "../types/Student.ts";
-
+import './CreateStudent.css';
 export type Props = {
     isInputVisible: boolean;
     setStudents: React.Dispatch<React.SetStateAction<Student[]>>;
@@ -67,12 +67,12 @@ export default function CreateStudent(props : Readonly<Props>){
         });
     };
     return (
-        <div style={{ display: 'flex', justifyContent: 'flex-start', flexDirection: 'column' }}>
+        <div className="div-container" >
             <form onSubmit={handleOnSubmit}>
                 {
                 props.isInputVisible && (
                     <>
-                        <div style={{marginBottom: '10px', width: '300px'}}>
+                        <div className="textarea">
                             <TextField
                                 id="username"
                                 name="username"
@@ -82,7 +82,7 @@ export default function CreateStudent(props : Readonly<Props>){
                                 variant="outlined"
                             />
                         </div>
-                        <div style={{marginBottom: '10px', width: '300px'}}>
+                        <div className="textarea">
                             <TextField
                                 id="name"
                                 name="username"
@@ -92,7 +92,7 @@ export default function CreateStudent(props : Readonly<Props>){
                                 variant="outlined"
                             />
                         </div>
-                        <div style={{marginBottom: '10px'}}>
+                        <div className="textarea">
                             <TextField
                                 id="surname"
                                 name="surname"
@@ -102,7 +102,7 @@ export default function CreateStudent(props : Readonly<Props>){
                                 variant="outlined"
                             />
                         </div>
-                        <div style={{marginBottom: '10px'}}>
+                        <div className="textarea">
                             <TextField
                                 id="email"
                                 name="email"
@@ -112,7 +112,7 @@ export default function CreateStudent(props : Readonly<Props>){
                                 variant="outlined"
                             />
                         </div>
-                        <div style={{marginBottom: '10px'}}>
+                        <div className="textarea">
                             <TextField
                                 id="password"
                                 name="password"
@@ -122,7 +122,7 @@ export default function CreateStudent(props : Readonly<Props>){
                                 variant="outlined"
                             />
                         </div>
-                        <Button variant="contained" type="submit" style={{backgroundColor: 'green', color: 'white', width: '10px'}}>
+                        <Button variant="contained" type="submit" className="button-design" style={{backgroundColor: 'green'}}>
                             Save
                         </Button>
                     </>
