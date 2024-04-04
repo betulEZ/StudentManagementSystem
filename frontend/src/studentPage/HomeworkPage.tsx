@@ -26,7 +26,7 @@ export default function HomeworkPage(props : Readonly<Props>){
                 });
         }
     }, [lessonId]);
-
+    console.log(lessons);
     return (
         <>
             <StudentNavbar  studentId={props?.studentId ?? ''} logout={props.logout} setLessons={setLessons}/>
