@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 @Service
@@ -18,6 +19,9 @@ public class AppUserService {
     public AppUserResponse create(AppUserDto appUserDto){
         String password = passwordEncoder.encode(appUserDto.password());
         Student student=new Student();
+        student.setName(appUserDto.name());
+        student.setSurname(appUserDto.surname());
+        student.setLessonList(new ArrayList<>());
         Student save= studentRepository.save(student);
         AppUser appUser = new AppUser().fromDto(appUserDto, password);
         appUser.setStudentId(save.getId());

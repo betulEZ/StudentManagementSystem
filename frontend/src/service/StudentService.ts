@@ -1,5 +1,6 @@
 import axios from "axios";
 import {Student} from "../types/Student.ts";
+import {AppUser} from "../types/AppUser.ts";
 
 export default class StudentService{
     getAllStudents() {
@@ -17,6 +18,9 @@ export default class StudentService{
     }
     deleteStudents(id: string) {
         return axios.delete(`/api/students/${id}`);
+    }
+    register(appUser: AppUser){
+        return axios.post(`/api/users/register`,appUser)
     }
 
 }
