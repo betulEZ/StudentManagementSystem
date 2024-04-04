@@ -62,7 +62,7 @@ export default function StudentHomePage(props : Readonly<Props>){
             console.error('Error while deleting lesson:', error);
         }
     }
-
+    console.log(homework);
     return(
         <>
             <StudentNavbar studentId={props?.studentId ?? ''} logout={props.logout}  setLessons={setLessons}/>
