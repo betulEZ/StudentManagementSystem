@@ -1,6 +1,5 @@
 import axios from "axios";
 import {Student} from "../types/Student.ts";
-import {Lesson} from "../types/Lesson.ts";
 
 export default class StudentService{
     getAllStudents() {
