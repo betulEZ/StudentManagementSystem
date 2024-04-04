@@ -8,10 +8,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {Button,TableCell } from "@mui/material";
+import {Button, TableCell} from "@mui/material";
 import React from "react";
 import UpdateStudent from "./UpdateStudent.tsx";
 import TeacherNavbar from "./TeacherNavbar.tsx";
+import CreateStudent from "./CreateStudent.tsx";
 
 
 const studentService = new StudentService();
@@ -26,7 +27,11 @@ export default function StudentList(props : Readonly<Props>){
     const currentStudent = students.find(student => student.id === id);
     const [name, setName] = useState(currentStudent ? currentStudent.name : '');
     const [surname, setSurname] = useState(currentStudent ? currentStudent.surname : '');
+    const [inputVisible, setInputVisible] = useState(false);
 
+    const handleButtonClick = () => {
+        setInputVisible(true);
+    };
 
     useEffect(() => {
         studentService.getAllStudents().then((response) => {
@@ -82,57 +87,62 @@ export default function StudentList(props : Readonly<Props>){
         setOpen(false);
     }
 
-
     return(
         <>
             <TeacherNavbar logout={props.logout}/>
             <div className="table">
-            <TableContainer component={Paper}>
-                <Table aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Id</TableCell>
-                            <TableCell>Name Surname</TableCell>
-                            <TableCell align="center">Edit</TableCell>
-                            <TableCell align="center">Delete</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {students.map((student) => (
-                            <TableRow
-                                key={student.id}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                                <TableCell component="th" scope="row">
-                                    {student.id}
-                                </TableCell>
-                                <TableCell component="th" scope="row">{student.name} {student.surname}</TableCell>
-                                <TableCell align="center">
-                                    <React.Fragment>
-                                    <Button variant="outlined" onClick={() => handleOpen(student.id)}>Edit
-                                    </Button>
-                                    </React.Fragment>
-
-                                    <UpdateStudent
-                                        open={open}
-                                        name={name}
-                                        surname={surname}
-                                        handleClose={handleClose}
-                                        handleSave={handleSave}
-                                        changeName={changeName}
-                                        changeSurname={changeSurname}
-                                        logout={props.logout}
-                                    />
-                                </TableCell>
-                                <TableCell  align="center" onClick={() => handleDelete(student.id)}>
-                                    <Button variant="outlined">Delete </Button>
-                                </TableCell>
+                <TableContainer component={Paper}>
+                    <Table aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Id</TableCell>
+                                <TableCell>Name Surname</TableCell>
+                                <TableCell align="center">Edit</TableCell>
+                                <TableCell align="center">Delete</TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                        </TableHead>
+                        <TableBody>
+                            {students.map((student) => (
+                                <TableRow
+                                    key={student.id}
+                                    sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                                >
+                                    <TableCell component="th" scope="row">
+                                        {student.id}
+                                    </TableCell>
+                                    <TableCell component="th" scope="row">{student.name} {student.surname}</TableCell>
+                                    <TableCell align="center">
+                                        <React.Fragment>
+                                            <Button variant="outlined" onClick={() => handleOpen(student.id)}>Edit
+                                            </Button>
+                                        </React.Fragment>
+
+                                        <UpdateStudent
+                                            open={open}
+                                            name={name}
+                                            surname={surname}
+                                            handleClose={handleClose}
+                                            handleSave={handleSave}
+                                            changeName={changeName}
+                                            changeSurname={changeSurname}
+                                            logout={props.logout}
+                                        />
+                                    </TableCell>
+                                    <TableCell align="center" onClick={() => handleDelete(student.id)}>
+                                        <Button variant="outlined">Delete </Button>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                <br/>
+                <Button onClick={handleButtonClick} style={{backgroundColor: 'deepskyblue', color: 'white'}}>Create
+                    Student</Button>
+                <div style={{ marginBottom: '20px' }} /> {}
+                <CreateStudent isInputVisible={inputVisible} setStudents={setStudents}/>
             </div>
+
         </>
     );
 }

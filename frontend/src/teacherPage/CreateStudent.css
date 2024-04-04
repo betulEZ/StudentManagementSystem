@@ -1,0 +1,13 @@
+.div-container{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+.textarea{
+    margin-bottom: 10px;
+    width: 300px;
+}
+.button-design{
+    color: white;
+    width: 10px;
+}
