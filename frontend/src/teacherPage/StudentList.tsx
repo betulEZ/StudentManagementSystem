@@ -27,7 +27,7 @@ export default function StudentList(props : Readonly<Props>){
     const currentStudent = students.find(student => student.id === id);
     const [name, setName] = useState(currentStudent ? currentStudent.name : '');
     const [surname, setSurname] = useState(currentStudent ? currentStudent.surname : '');
-    const [isInputVisible, setInputVisible] = useState(false);
+    const [InputVisible, setInputVisible] = useState(false);
 
     const handleButtonClick = () => {
         setInputVisible(true);
@@ -140,7 +140,7 @@ export default function StudentList(props : Readonly<Props>){
                 <Button onClick={handleButtonClick} style={{backgroundColor: 'deepskyblue', color: 'white'}}>Create
                     Student</Button>
                 <div style={{ marginBottom: '20px' }} /> {}
-                <CreateStudent isInputVisible={isInputVisible} setStudents={setStudents}/>
+                <CreateStudent isInputVisible={InputVisible} setStudents={setStudents}/>
             </div>
 
         </>
