@@ -1,5 +1,7 @@
 package com.example.backend.controller;
 
+import com.example.backend.model.AttendanceDTO;
+import com.example.backend.model.AttendanceStatus;
 import com.example.backend.model.Lesson;
 import com.example.backend.model.LessonDTO;
 import com.example.backend.repository.LessonRepository;
@@ -16,6 +18,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -36,7 +39,7 @@ class LessonControllerTest {
     @Test
     void saveNewLesson() throws Exception {
         // GIVEN
-        LessonDTO requestBody = new  LessonDTO("Lesson1",null);
+        LessonDTO requestBody = new  LessonDTO("Lesson1",null,null);
 
         // WHEN & THEN
         mvc.perform(MockMvcRequestBuilders.post("/api/lessons")
@@ -50,7 +53,7 @@ class LessonControllerTest {
     void getAllLessons() throws Exception {
        // GIVEN
         List<Lesson> lessonList = new ArrayList<>();
-        lessonList.add(new Lesson("101", "Math", null));
+        lessonList.add(new Lesson("101", "Math", null,null));
 
         lessonRepository.saveAll(lessonList);
 
@@ -59,6 +62,21 @@ class LessonControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value("101"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("Math"));
+    }
+    @Test
+    void testGetAllAttendance() throws Exception {
+        // GIVEN
+        List<AttendanceDTO> expectedAttendanceList = Arrays.asList(
+                new AttendanceDTO("Description1", AttendanceStatus.LOW)
+        );
+        Lesson lesson = new Lesson("2", "title", null, expectedAttendanceList);
+        lessonRepository.save(lesson);
+
+        // WHEN & THEN
+        mvc.perform(MockMvcRequestBuilders.get("/api/lessons/all-attendance")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].description").value("Description1"));
     }
 
 }

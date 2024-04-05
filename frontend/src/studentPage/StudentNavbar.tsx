@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import './StudentNavbar.css';
 import {Link, useNavigate} from "react-router-dom";
 import React, {useEffect, useState} from "react";
-import {Lesson} from "../types/Lesson.ts";
+import {AttendanceStatus, Lesson} from "../types/Lesson.ts";
 import axios from "axios";
 import LessonService from "../service/LessonService.ts";
 import AddLesson from "./AddLesson.tsx";
@@ -23,9 +23,15 @@ export type Props = {
 const lessonService=new LessonService();
 export default function StudentNavbar(props : Readonly<Props>, ){
     const navigate=useNavigate();
-    const [selectedLesson,setSelectedLesson]=useState<Lesson>({id: '', name: '' ,studentList:[]});
+    const [selectedLesson,setSelectedLesson]=useState<Lesson>({id: '',
+        name: '',
+        studentList: [],
+        attendanceList: [{ description: '', status: AttendanceStatus.LOW }]});
     const [lessons, setLessons] = useState<Lesson[]>([]);
-    const [formData, setFormData] = useState<Lesson>({id: '', name: '' ,studentList:[] });
+    const [formData, setFormData] = useState<Lesson>({id: '',
+        name: '',
+        studentList: [],
+        attendanceList: [{ description: '', status: AttendanceStatus.LOW }]});
 
 
     useEffect(() => {

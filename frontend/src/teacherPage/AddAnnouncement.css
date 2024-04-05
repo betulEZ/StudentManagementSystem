@@ -1,0 +1,6 @@
+.form-style {
+    margin: 1px;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+}

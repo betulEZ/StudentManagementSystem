@@ -8,6 +8,7 @@ import axios from "axios";
 import RegisterPage from "./RegisterPage.tsx";
 import LoginPage from "./LoginPage.tsx";
 import HomeworkPage from "./studentPage/HomeworkPage.tsx";
+import AddAnnouncement from "./teacherPage/AddAnnouncement.tsx";
 
 type AppUser = {
     id: string,
@@ -72,9 +73,10 @@ export default function App() {
                 )} />
                 <Route path={"/register"} element={<RegisterPage />} />
                 <Route path={"/login"} element={<LoginPage fetchMe={fetchMe} />} />
-                <Route path="/teacher" element={appUser?.role === "TEACHER" ? <TeacherHomePage  logout={logout}/> : null} />
+                <Route path="/teacher" element={<TeacherHomePage logout={logout}/>} />
                 <Route path="/teacher/studentlist" element={<StudentList logout={logout}/>}  />
                 <Route path="/teacher/homework" element={<HomeworkAdd logout={logout}/>}  />
+                <Route path="/teacher/add-attendance" element={<AddAnnouncement logout={logout}/>}  />
                 <Route path={'/student/:studentId'} element={<StudentHomePage studentId={appUser?.studentId ?? ''} logout={logout}/>} />
                 <Route path={'/homeworks/:lessonId'} element={<HomeworkPage studentId={appUser?.studentId ?? ''} logout={logout}/>} />
 

@@ -9,7 +9,7 @@ import {
     TextField
 } from "@mui/material";
 import LessonService from "../service/LessonService.ts";
-import {Lesson} from "../types/Lesson.ts";
+import {AttendanceStatus, Lesson} from "../types/Lesson.ts";
 import {useState, useEffect, ChangeEvent, FormEvent} from "react";
 import {Homework} from "../types/Homework.ts";
 import HomeworkService from "../service/HomeworkService.ts";
@@ -23,12 +23,18 @@ export type Props = {
 }
 export default function HomeworkAdd(props : Readonly<Props>) {
     const [lessons, setLessons] = useState<Lesson[]>([]);
-    const [selectedLesson,setSelectedLesson]=useState<Lesson>({id: '', name: '' ,studentList:[]});
+    const [selectedLesson,setSelectedLesson]=useState<Lesson>({   id: '',
+        name: '',
+        studentList: [],
+        attendanceList: [{ description: '', status: AttendanceStatus.LOW }]});
     const [formData, setFormData] = useState<Homework>({
         title: '',
         description: '',
         deadline: new Date(),
-        lesson: { id: '', name: '' ,studentList:[] }
+        lesson: { id: '',
+            name: '',
+            studentList: [],
+            attendanceList: [{ description: '', status: AttendanceStatus.LOW }] }
     });
 
 
@@ -37,15 +43,26 @@ export default function HomeworkAdd(props : Readonly<Props>) {
             setLessons(response.data);
         });
     }, []);
-    function handleLessonChange(event: SelectChangeEvent<Lesson>) {
-        setSelectedLesson(event.target.value as Lesson);
+    function handleLessonChange(event: SelectChangeEvent<string>) {
+        const selectedLessonId = event.target.value as string;
+        const selectedLesson = lessons.find(lesson => lesson.id === selectedLessonId);
+
         if (selectedLesson) {
-            setFormData((prevData) => ({
+            console.log(selectedLesson);
+            setSelectedLesson(selectedLesson);
+
+            setFormData(prevData => ({
                 ...prevData,
-                lesson: { id: selectedLesson.id, name: selectedLesson.name, studentList: selectedLesson.studentList }
+                lesson: {
+                    id: selectedLesson.id,
+                    name: selectedLesson.name,
+                    studentList: selectedLesson.studentList,
+                    attendanceList: selectedLesson.attendanceList
+                }
             }));
         }
     }
+
     const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
         setFormData((prevData) => ({
@@ -70,17 +87,21 @@ export default function HomeworkAdd(props : Readonly<Props>) {
     const handleOnSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await homeworkService.addHomework(formData);
-        setFormData({ title: '', description: '', deadline: new Date(), lesson: { id: '', name: '' ,studentList:[]} } );
+        setFormData({ title: '', description: '', deadline: new Date(),  lesson: { id: '',
+                name: '',
+                studentList: [],
+                attendanceList: [{ description: '', status: AttendanceStatus.LOW }] } } );
     };
 
     return (
-        <><TeacherNavbar logout={props.logout}/>
+        <>
+            <TeacherNavbar logout={props.logout}/>
             <Box sx={{display: 'flex', justifyContent: 'center'}}>
                 <form onSubmit={handleOnSubmit}>
                     <FormControl sx={{m: 1, width: 300, display: 'flex', justifyContent: 'center'}}>
                         <InputLabel>Lessons</InputLabel>
                         <Select
-                            value={selectedLesson}
+                            value={selectedLesson.id}
                             onChange={handleLessonChange}
                             input={<OutlinedInput label="Lessons"/>}
                         >
