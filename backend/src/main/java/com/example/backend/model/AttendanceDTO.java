@@ -10,7 +10,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @With
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "attendance")
 public class AttendanceDTO {
     String description;
     AttendanceStatus status;
