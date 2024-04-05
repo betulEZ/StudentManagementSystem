@@ -11,7 +11,7 @@ import {
     Select,
     SelectChangeEvent
 } from "@mui/material";
-
+import './AddAnnouncement.css';
 const lessonService = new LessonService();
 
 export type Props = {
@@ -23,7 +23,7 @@ export default function AddAnnouncement(props : Readonly<Props>){
         name: '',
         studentList: [],
         attendanceList: [{ description: '', status: AttendanceStatus.LOW }]});
-    const [formData, setFormData] = useState<Attendance>({ description: '', status: AttendanceStatus.LOW });
+    const [form, setForm] = useState<Attendance>({ description: '', status: AttendanceStatus.LOW });
 
     useEffect(() => {
         lessonService.getAllLessons().then((response) => {
@@ -38,7 +38,7 @@ export default function AddAnnouncement(props : Readonly<Props>){
             console.log(selectedLesson);
             setSelectedLesson(selectedLesson);
 
-            setFormData(prevData => ({
+            setForm(prevData => ({
                 ...prevData,
                 lesson: {
                     id: selectedLesson.id,
@@ -51,28 +51,28 @@ export default function AddAnnouncement(props : Readonly<Props>){
     }
     const handleChangeDescription = (event: ChangeEvent<HTMLTextAreaElement>) => {
         const value = event.target.value;
-        setFormData((prevData) => ({
+        setForm((prevData) => ({
             ...prevData,
             description: value,
         }));
     };
-    const handleChangeStatus = (event: ChangeEvent<HTMLSelectElement>) => {
+    const handleChangeAttendanceStatus = (event: ChangeEvent<HTMLSelectElement>) => {
         const value = event.target.value as AttendanceStatus;
-        setFormData(prevData => ({
+        setForm(prevData => ({
             ...prevData,
             status: value,
         }));
     };
     const handleOnSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        await lessonService.saveNewAnnouncement(selectedLesson.id,formData);
-        setFormData({ description: '', status: AttendanceStatus.LOW });
+        await lessonService.saveNewAnnouncement(selectedLesson.id,form);
+        setForm({ description: '', status: AttendanceStatus.LOW });
     }
     return (
         <>
         <TeacherNavbar logout={props.logout}></TeacherNavbar><Box sx={{display: 'flex', justifyContent: 'center'}}>
          <form onSubmit={handleOnSubmit}>
-             <FormControl sx={{m: 1, width: 300, display: 'flex', justifyContent: 'center'}}>
+             <FormControl className="form-style" sx={{m: 1, width: 300, display: 'flex', justifyContent: 'center'}}>
                  <InputLabel>Lessons</InputLabel>
                  <Select
                      value={selectedLesson.id}
@@ -92,12 +92,12 @@ export default function AddAnnouncement(props : Readonly<Props>){
                  <textarea
                      id="description"
                      name="description"
-                     value={formData.description}
+                     value={form.description}
                      onChange={handleChangeDescription}
                      required
                  />
                  <label htmlFor="status">Status</label>
-                 <select value={formData.status} onChange={handleChangeStatus}>
+                 <select value={form.status} onChange={handleChangeAttendanceStatus}>
                      {Object.keys(AttendanceStatus).map((status, index) => (
                          <option key={index}
                                  value={AttendanceStatus[status as keyof typeof AttendanceStatus]}>{status}</option>
