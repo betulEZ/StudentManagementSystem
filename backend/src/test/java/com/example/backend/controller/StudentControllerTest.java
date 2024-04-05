@@ -56,7 +56,7 @@ class StudentControllerTest {
     void getStudentById() throws Exception {
         // GIVEN
         List<Lesson> lessonList = new ArrayList<>();
-        lessonList.add(new Lesson("101", "Math",null));
+        lessonList.add(new Lesson("101", "Math",null,null));
 
         Student student = new Student("1", "name", "surname", lessonList);
         studentRepository.save(student);
@@ -75,7 +75,7 @@ class StudentControllerTest {
     void getAllStudents() throws Exception {
         // GIVEN
         List<Lesson> lessonList = new ArrayList<>();
-        lessonList.add(new Lesson("101", "Math", null));
+        lessonList.add(new Lesson("101", "Math", null,null));
 
         Student student = new Student("1", "name", "surname", lessonList);
         studentRepository.save(student);
@@ -96,7 +96,7 @@ class StudentControllerTest {
     void updateStudent() throws Exception {
         // GIVEN
         List<Lesson> lessonList = new ArrayList<>();
-        lessonList.add(new Lesson("101", "Math", null));
+        lessonList.add(new Lesson("101", "Math", null,null));
 
         Student student = new Student("1", "name", "surname", lessonList);
         studentRepository.save(student);

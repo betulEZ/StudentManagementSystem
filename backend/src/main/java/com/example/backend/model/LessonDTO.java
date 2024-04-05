@@ -10,4 +10,5 @@ import java.util.List;
 public class LessonDTO {
     private String name;
     List<Student> studentList;
+    List<Attendance> attendanceList;
 }

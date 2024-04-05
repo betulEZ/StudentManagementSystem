@@ -17,8 +17,9 @@ public class Lesson {
     private String id;
     private String name;
     List<Student> studentList;
+    List<Attendance> attendanceList;
 
     public Lesson (LessonDTO lessonDTO){
-        this(null, lessonDTO.getName(), lessonDTO.getStudentList());
+        this(null, lessonDTO.getName(), lessonDTO.getStudentList(),lessonDTO.getAttendanceList());
     }
 }

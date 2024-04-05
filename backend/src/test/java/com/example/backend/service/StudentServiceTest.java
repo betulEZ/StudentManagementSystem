@@ -37,8 +37,8 @@ class StudentServiceTest {
     void testGetAllStudent() {
         // GIVEN
         List<Lesson> lessonList = Arrays.asList(
-                new Lesson(null,"Math",null),
-                new Lesson(null,"Science",null)
+                new Lesson(null,"Math",null,null),
+                new Lesson(null,"Science",null,null)
         );
         List<Student> expectedStudents = Arrays.asList(
                 new Student("1", "John","doe",lessonList),
@@ -68,7 +68,7 @@ class StudentServiceTest {
     void testAddLesson_UniqueLesson() {
         // GIVEN
         String studentId = "1";
-        LessonDTO lessonDto = new LessonDTO("Math", null);
+        LessonDTO lessonDto = new LessonDTO("Math", null,null);
         Student existingStudent = new Student(studentId, "John", "Doe", new ArrayList<>());
 
         when(studentRepository.findById(studentId)).thenReturn(Optional.of(existingStudent));
@@ -86,7 +86,7 @@ class StudentServiceTest {
     void testDeleteLessonById() {
         // GIVEN
         String studentId = "1";
-        LessonDTO lessonDto = new LessonDTO("Math", null);
+        LessonDTO lessonDto = new LessonDTO("Math", null,null);
         Student existingStudent = new Student(studentId, "John", "Doe", new ArrayList<>());
         Lesson lesson = new Lesson(lessonDto);
         existingStudent.getLessonList().add(lesson);

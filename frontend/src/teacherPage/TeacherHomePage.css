@@ -1,0 +1,13 @@
+.div-scope{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 50px;
+}
+.box-scope{
+    min-height:80px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}

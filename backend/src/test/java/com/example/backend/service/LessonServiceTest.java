@@ -1,8 +1,6 @@
 package com.example.backend.service;
 
-import com.example.backend.model.Lesson;
-import com.example.backend.model.LessonDTO;
-import com.example.backend.model.Student;
+import com.example.backend.model.*;
 import com.example.backend.repository.LessonRepository;
 import com.example.backend.repository.StudentRepository;
 import org.junit.jupiter.api.Test;
@@ -25,7 +23,7 @@ class LessonServiceTest {
         // GIVEN
         List<Student> studentList=new ArrayList<>();
         studentList.add(new Student("1","name","surname",null));
-        Lesson lessonList = new Lesson("101", "Math", studentList);
+        Lesson lessonList = new Lesson("101", "Math", studentList,null);
         List<Lesson> expected=List.of(lessonList);
 
         // WHEN
@@ -44,8 +42,8 @@ class LessonServiceTest {
         // GIVEN
         List<Student> studentList=new ArrayList<>();
         studentList.add(new Student("1","name","surname",null));
-        Lesson expected=new Lesson("Math101","Math",studentList);
-        LessonDTO lessonDTO=new LessonDTO("Math",studentList);
+        Lesson expected=new Lesson("Math101","Math",studentList,null);
+        LessonDTO lessonDTO=new LessonDTO("Math",studentList,null);
 
         // WHEN
         when(lessonRepository.save(new Lesson(lessonDTO))).thenReturn(expected);
@@ -61,8 +59,8 @@ class LessonServiceTest {
         Student student = new Student();
         student.setId(studentId);
         List<Lesson> lessonList = Arrays.asList(
-                new Lesson(null,"Math",null),
-                new Lesson(null,"Science",null)
+                new Lesson(null,"Math",null,null),
+                new Lesson(null,"Science",null,null)
         );
         student.setLessonList(lessonList);
 
@@ -72,5 +70,50 @@ class LessonServiceTest {
 
         // THEN
         assertEquals(lessonList, result);
+    }
+    @Test
+    public void testSaveAttendanceByLessonId() {
+        // GIVEN
+        String lessonId = "1";
+        Attendance attendance = new Attendance();
+        attendance.setDescription("Attendance description");
+        attendance.setStatus(AttendanceStatus.LOW);
+        Lesson expectedLesson = new Lesson();
+        expectedLesson.setId(lessonId);
+        expectedLesson.setAttendanceList(new ArrayList<>());
+        expectedLesson.getAttendanceList().add(attendance);
+
+        // WHEN
+        when(lessonRepository.findById(lessonId)).thenReturn(Optional.of(expectedLesson));
+        when(lessonRepository.save(expectedLesson)).thenReturn(expectedLesson);
+
+        Attendance savedAttendance = lessonService.saveAttendance(lessonId, attendance);
+
+        // THEN
+        assertNotNull(savedAttendance);
+        assertEquals(attendance.getDescription(), savedAttendance.getDescription());
+        assertEquals(attendance.getStatus(), savedAttendance.getStatus());
+    }
+
+    @Test
+    public void testDeleteAttendance() {
+        // GIVEN
+        String lessonId = "1";
+        AttendanceStatus status = AttendanceStatus.LOW;
+        Attendance attendanceToRemove = new Attendance("description", status);
+        List<Attendance> attendanceList = new ArrayList<>();
+        attendanceList.add(attendanceToRemove);
+        Lesson lesson = new Lesson();
+        lesson.setId(lessonId);
+        lesson.setAttendanceList(attendanceList);
+
+        // WHEN
+        when(lessonRepository.findById(anyString())).thenReturn(Optional.of(lesson));
+        lessonService.deleteAttendance(lessonId, attendanceToRemove);
+
+        // THEN
+        assertTrue(lesson.getAttendanceList().isEmpty());
+
+        verify(lessonRepository).save(lesson);
     }
 }

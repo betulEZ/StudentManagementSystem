@@ -70,7 +70,8 @@ public class StudentService {
                 .findFirst()
                 .orElseThrow();
 
-        temp.getLessonList().remove(lessonToRemove);
+        temp.getLessonList().removeIf(lesson -> lesson.getId().equals(lessonToRemove.getId()));
+
         studentRepository.save(temp);
     }
 

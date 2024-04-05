@@ -1,9 +1,7 @@
 package com.example.backend.service;
 
 import com.example.backend.exception.StudentNotFoundException;
-import com.example.backend.model.Lesson;
-import com.example.backend.model.LessonDTO;
-import com.example.backend.model.Student;
+import com.example.backend.model.*;
 import com.example.backend.repository.LessonRepository;
 import com.example.backend.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +24,7 @@ public class LessonService {
     }
 
     public Lesson saveLesson(LessonDTO lessonDTO) {
-        Lesson temp=new Lesson(null,lessonDTO.getName(),lessonDTO.getStudentList());
+        Lesson temp=new Lesson(null,lessonDTO.getName(),lessonDTO.getStudentList(), lessonDTO.getAttendanceList());
         return lessonRepository.save(temp);
     }
 
@@ -37,6 +35,36 @@ public class LessonService {
             return new ArrayList<>(student.getLessonList());
         } else {
             throw new StudentNotFoundException("Student not found with id: " + studentId);
+        }
+    }
+
+    public List<Attendance> getAllAttendance() {
+        List<Attendance> allAttendance = new ArrayList<>();
+        List<Lesson> allLessons = lessonRepository.findAll();
+
+        for (Lesson lesson : allLessons) {
+            allAttendance.addAll(lesson.getAttendanceList());
+        }
+        return allAttendance;
+    }
+
+    public Attendance saveAttendance(String lessonId,Attendance attendance) {
+        Lesson lesson=lessonRepository.findById(lessonId).orElseThrow();
+
+        List<Attendance> attendanceList = lesson.getAttendanceList();
+        attendanceList.add(attendance);
+        lesson.setAttendanceList(attendanceList);
+        lessonRepository.save(lesson);
+
+        return attendance;
+    }
+
+    public void deleteAttendance(String lessonId, Attendance attendance) {
+        Optional<Lesson> optionalLesson = lessonRepository.findById(lessonId);
+        if (optionalLesson.isPresent()) {
+            Lesson lesson = optionalLesson.get();
+            lesson.getAttendanceList().removeIf(a -> a.equals(attendance));
+            lessonRepository.save(lesson);
         }
     }
 }
