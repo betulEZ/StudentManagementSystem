@@ -17,7 +17,7 @@ const lessonService = new LessonService();
 export type Props = {
     logout():void
 };
-export default function AddAnnouncement(props: Props){
+export default function AddAnnouncement(props : Readonly<Props>){
     const [lessons, setLessons] = useState<Lesson[]>([]);
     const [selectedLesson,setSelectedLesson]=useState<Lesson>({   id: '',
         name: '',
