@@ -57,11 +57,11 @@ export default function TeacherHomePage(props : Readonly<Props>) {
 
             <div className="div-scope">
                 <h2>Announcement List</h2>
-                {lessons && lessons.length > 0 && lessons.map((lesson) => (
-                    <div >
+                {lessons && lessons.length > 0 && lessons.map((lesson, index) => (
+                    <div key={index}>
 
-                        {lesson.attendanceList && lesson.attendanceList.length > 0 && lesson.attendanceList.map((attendance) => (
-                            <Card style={{
+                        {lesson.attendanceList && lesson.attendanceList.length > 0 && lesson.attendanceList.map((attendance, idx) => (
+                            <Card key={idx} style={{
                                 marginBottom: '10px',
                                 width: '600px',
                                 backgroundColor: getColorForStatus(attendance.status)
