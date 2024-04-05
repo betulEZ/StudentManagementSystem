@@ -98,8 +98,8 @@ export default function AddAnnouncement(props : Readonly<Props>){
                  />
                  <label htmlFor="status">Status</label>
                  <select value={form.status} onChange={handleChangeAttendanceStatus}>
-                     {Object.keys(AttendanceStatus).map((status, index) => (
-                         <option key={index}
+                     {Object.keys(AttendanceStatus).map((status) => (
+                         <option key={status}
                                  value={AttendanceStatus[status as keyof typeof AttendanceStatus]}>{status}</option>
                      ))}
                  </select>

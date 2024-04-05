@@ -35,20 +35,20 @@ export default function TeacherHomePage(props : Readonly<Props>) {
                 return '#e0e0e0';
         }
     };
-    const handleDelete = (lessonId: string, attendance: Attendance) => {
-        lessonService.deleteAnnouncement(lessonId, attendance)
-            .then(() => {
-                const updatedLessons = lessons.map(lesson => {
-                    if (lesson.id === lessonId) {
-                        lesson.attendanceList = lesson.attendanceList.filter(a => a !== attendance);
-                    }
-                    return lesson;
-                });
-                setLessons(updatedLessons);
-            })
-            .catch(error => {
-                console.error('Error deleting attendance:', error);
-            });
+    const handleDelete = async (lessonId: string, attendance: Attendance) => {
+        await lessonService.deleteAnnouncement(lessonId, attendance);
+        const updatedLessons = updateLessons(lessonId, attendance);
+        setLessons(updatedLessons);
+
+    }
+
+    const updateLessons = (lessonId: string, attendance: Attendance) => {
+        return lessons.map(lesson => {
+            if (lesson.id === lessonId) {
+                lesson.attendanceList = lesson.attendanceList.filter(a => a !== attendance);
+            }
+            return lesson;
+        });
     }
 
     return (
@@ -57,11 +57,11 @@ export default function TeacherHomePage(props : Readonly<Props>) {
 
             <div className="div-scope">
                 <h2>Announcement List</h2>
-                {lessons && lessons.length > 0 && lessons.map((lesson, index) => (
-                    <div key={index}>
+                {lessons && lessons.length > 0 && lessons.map((lesson) => (
+                    <div key={lesson.id}>
 
-                        {lesson.attendanceList && lesson.attendanceList.length > 0 && lesson.attendanceList.map((attendance, idx) => (
-                            <Card key={idx} style={{
+                        {lesson.attendanceList && lesson.attendanceList.length > 0 && lesson.attendanceList.map((attendance) => (
+                            <Card key={attendance.description} style={{
                                 marginBottom: '10px',
                                 width: '600px',
                                 backgroundColor: getColorForStatus(attendance.status)
