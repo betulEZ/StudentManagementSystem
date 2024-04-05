@@ -72,7 +72,7 @@ class LessonServiceTest {
         assertEquals(lessonList, result);
     }
     @Test
-    public void testSaveAttendanceByLessonId() {
+    void testSaveAttendanceByLessonId() {
         // GIVEN
         String lessonId = "1";
         AttendanceDTO attendance = new AttendanceDTO();
@@ -96,7 +96,7 @@ class LessonServiceTest {
     }
 
     @Test
-    public void testDeleteAttendance() {
+    void testDeleteAttendance() {
         // GIVEN
         String lessonId = "1";
         AttendanceStatus status = AttendanceStatus.LOW;
