@@ -1,7 +1,6 @@
 package com.example.backend.controller;
 import com.example.backend.exception.StudentNotFoundException;
-import com.example.backend.model.Attendance;
-import com.example.backend.model.AttendanceStatus;
+import com.example.backend.model.AttendanceDTO;
 import com.example.backend.model.Lesson;
 import com.example.backend.model.LessonDTO;
 import com.example.backend.service.LessonService;
@@ -32,16 +31,16 @@ public class LessonController {
         return lessonService.getAllLessonsByStudentId(studentId);
     }
     @GetMapping("/all-attendance")
-    public List<Attendance> getAllAttendance(){
+    public List<AttendanceDTO> getAllAttendance(){
             return lessonService.getAllAttendance();
     }
     @PostMapping("/save-attendance/{lessonId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Attendance saveAttendanceByLessonId(@PathVariable String lessonId,@RequestBody Attendance attendance){
+    public AttendanceDTO saveAttendanceByLessonId(@PathVariable String lessonId, @RequestBody AttendanceDTO attendance){
         return lessonService.saveAttendance(lessonId,attendance);
     }
     @DeleteMapping("/delete-announcement/{lessonId}")
-    public void deleteAttendance(@PathVariable String lessonId,@RequestBody Attendance attendance){
+    public void deleteAttendance(@PathVariable String lessonId,@RequestBody AttendanceDTO attendance){
         lessonService.deleteAttendance(lessonId, attendance);
     }
 }

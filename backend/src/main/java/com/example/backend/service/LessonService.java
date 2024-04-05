@@ -38,8 +38,8 @@ public class LessonService {
         }
     }
 
-    public List<Attendance> getAllAttendance() {
-        List<Attendance> allAttendance = new ArrayList<>();
+    public List<AttendanceDTO> getAllAttendance() {
+        List<AttendanceDTO> allAttendance = new ArrayList<>();
         List<Lesson> allLessons = lessonRepository.findAll();
 
         for (Lesson lesson : allLessons) {
@@ -48,10 +48,10 @@ public class LessonService {
         return allAttendance;
     }
 
-    public Attendance saveAttendance(String lessonId,Attendance attendance) {
+    public AttendanceDTO saveAttendance(String lessonId, AttendanceDTO attendance) {
         Lesson lesson=lessonRepository.findById(lessonId).orElseThrow();
 
-        List<Attendance> attendanceList = lesson.getAttendanceList();
+        List<AttendanceDTO> attendanceList = lesson.getAttendanceList();
         attendanceList.add(attendance);
         lesson.setAttendanceList(attendanceList);
         lessonRepository.save(lesson);
@@ -59,7 +59,7 @@ public class LessonService {
         return attendance;
     }
 
-    public void deleteAttendance(String lessonId, Attendance attendance) {
+    public void deleteAttendance(String lessonId, AttendanceDTO attendance) {
         Optional<Lesson> optionalLesson = lessonRepository.findById(lessonId);
         if (optionalLesson.isPresent()) {
             Lesson lesson = optionalLesson.get();

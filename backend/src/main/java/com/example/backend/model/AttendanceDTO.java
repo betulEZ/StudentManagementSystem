@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "attendance")
-public class Attendance {
+public class AttendanceDTO {
     String description;
     AttendanceStatus status;
 }

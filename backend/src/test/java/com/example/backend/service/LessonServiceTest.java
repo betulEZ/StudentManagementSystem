@@ -75,7 +75,7 @@ class LessonServiceTest {
     public void testSaveAttendanceByLessonId() {
         // GIVEN
         String lessonId = "1";
-        Attendance attendance = new Attendance();
+        AttendanceDTO attendance = new AttendanceDTO();
         attendance.setDescription("Attendance description");
         attendance.setStatus(AttendanceStatus.LOW);
         Lesson expectedLesson = new Lesson();
@@ -87,7 +87,7 @@ class LessonServiceTest {
         when(lessonRepository.findById(lessonId)).thenReturn(Optional.of(expectedLesson));
         when(lessonRepository.save(expectedLesson)).thenReturn(expectedLesson);
 
-        Attendance savedAttendance = lessonService.saveAttendance(lessonId, attendance);
+        AttendanceDTO savedAttendance = lessonService.saveAttendance(lessonId, attendance);
 
         // THEN
         assertNotNull(savedAttendance);
@@ -100,8 +100,8 @@ class LessonServiceTest {
         // GIVEN
         String lessonId = "1";
         AttendanceStatus status = AttendanceStatus.LOW;
-        Attendance attendanceToRemove = new Attendance("description", status);
-        List<Attendance> attendanceList = new ArrayList<>();
+        AttendanceDTO attendanceToRemove = new AttendanceDTO("description", status);
+        List<AttendanceDTO> attendanceList = new ArrayList<>();
         attendanceList.add(attendanceToRemove);
         Lesson lesson = new Lesson();
         lesson.setId(lessonId);

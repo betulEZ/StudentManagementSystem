@@ -1,6 +1,6 @@
 package com.example.backend.controller;
 
-import com.example.backend.model.Attendance;
+import com.example.backend.model.AttendanceDTO;
 import com.example.backend.model.AttendanceStatus;
 import com.example.backend.model.Lesson;
 import com.example.backend.model.LessonDTO;
@@ -66,8 +66,8 @@ class LessonControllerTest {
     @Test
     void testGetAllAttendance() throws Exception {
         // GIVEN
-        List<Attendance> expectedAttendanceList = Arrays.asList(
-                new Attendance("Description1", AttendanceStatus.LOW)
+        List<AttendanceDTO> expectedAttendanceList = Arrays.asList(
+                new AttendanceDTO("Description1", AttendanceStatus.LOW)
         );
         Lesson lesson = new Lesson("2", "title", null, expectedAttendanceList);
         lessonRepository.save(lesson);
