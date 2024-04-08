@@ -24,7 +24,7 @@ export default function StudentHomePage(props : Readonly<Props>){
     const [lessons, setLessons]=useState<Lesson[]>([]);
     const [homework, setHomeworks] = useState<Homework[]>([]);
     const [homeworkCounts, setHomeworkCounts] = useState<{ [key: string]: number }>({});
-    const [,setAnnouncement]=useState<Attendance[]>([])
+    const [announcement,setAnnouncement]=useState<Attendance[]>([])
     const [announcementCounts, setAnnouncementCounts] = useState<{ [key: string]: number }>({});
 
     useEffect(() => {
@@ -56,7 +56,7 @@ export default function StudentHomePage(props : Readonly<Props>){
         try {
         if(lesson){
             const response = await axios.delete(`/api/students/${props.studentId}/delete-lesson`, { data: lesson });
-            console.log('Lesson deleted successfully:', response.data);
+            console.log('Lesson deleted successfully:', response.data,announcement);
             const updatedLessons = lessons.filter(item => item.id !== lesson.id);
             setLessons(updatedLessons);
         }

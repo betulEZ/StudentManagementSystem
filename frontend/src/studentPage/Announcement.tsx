@@ -52,13 +52,13 @@ export default function Announcement(props: Readonly<Props>){
             <StudentNavbar studentId={props?.studentId ?? ''} logout={props.logout} setLessons={setLessons}/>
             <h1>Announcements</h1>
             <div className="div-scope" >
-                {announcement.map((item, index) => (
-                    <Card key={index} style={{
+                {announcement.map((item) => (
+                    <Card key={item.description} style={{
                         marginBottom: '10px',
                         width: '600px',
                         backgroundColor: getColorForStatus(item.status)
                     }}>
-                        <Box className="box-scope" sx={{textAlign: 'center'}}>
+                        <Box className="box-scope" >
                             <CardContent>
                                 <h4>{item.description}</h4>
                             </CardContent>
