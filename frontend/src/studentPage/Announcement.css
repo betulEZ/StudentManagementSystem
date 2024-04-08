@@ -1,0 +1,11 @@
+.box-scope{
+    min-height:80px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+.div-scope{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

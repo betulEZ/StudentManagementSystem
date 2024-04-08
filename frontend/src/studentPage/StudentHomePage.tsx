@@ -1,7 +1,7 @@
 import StudentNavbar from "./StudentNavbar.tsx";
 import LessonService from "../service/LessonService.ts";
 import {useEffect, useState} from "react";
-import {Lesson} from "../types/Lesson.ts";
+import {Attendance, Lesson} from "../types/Lesson.ts";
 import {Badge, Card, CardContent} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import {Link} from "react-router-dom";
@@ -12,6 +12,7 @@ import './HomeworkPage.css';
 import AddHomeWorkIcon from "@mui/icons-material/AddHomeWork";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
+import AnnouncementIcon from '@mui/icons-material/Announcement';
 
 export type Props = {
     studentId: string,
@@ -23,7 +24,8 @@ export default function StudentHomePage(props : Readonly<Props>){
     const [lessons, setLessons]=useState<Lesson[]>([]);
     const [homework, setHomeworks] = useState<Homework[]>([]);
     const [homeworkCounts, setHomeworkCounts] = useState<{ [key: string]: number }>({});
-
+    const [,setAnnouncement]=useState<Attendance[]>([])
+    const [announcementCounts, setAnnouncementCounts] = useState<{ [key: string]: number }>({});
 
     useEffect(() => {
         lessonService.getAllLessonsByStudentId(props.studentId).then((response) => {
@@ -63,6 +65,21 @@ export default function StudentHomePage(props : Readonly<Props>){
         }
     }
     console.log(homework);
+
+    async function handleGetAllAnnouncement(lessonId: string) {
+            const response = await lessonService.getAllAnnouncementByLessonId(lessonId);
+            setAnnouncement((prevAnnouncements) => [...prevAnnouncements, ...response.data]);
+            setAnnouncementCounts((prevCounts) => ({
+                ...prevCounts,
+                [lessonId]: response.data.length
+            }));
+    }
+    useEffect(() => {
+        lessons.forEach((lesson) => {
+            handleGetAllAnnouncement(lesson.id);
+        });
+    }, [lessons]);
+
     return(
         <>
             <StudentNavbar studentId={props?.studentId ?? ''} logout={props.logout}  setLessons={setLessons}/>
@@ -81,6 +98,13 @@ export default function StudentHomePage(props : Readonly<Props>){
                                     <DeleteIcon style={{color: 'red'}} onClick={() => handleLessonDelete(lesson)}/>
                                 </div>
                                 <div>
+                                    <Link to={`/student/${props.studentId}/announcement/${lesson.id}`}>
+                                        <Badge badgeContent={announcementCounts[lesson?.id] || 0} color="primary" >
+                                            <AnnouncementIcon color="action"/>
+                                        </Badge>
+                                    </Link>
+                                </div>
+                                <div>
                                     <Link to={`/homeworks/${lesson.id}`}>
                                         <Badge badgeContent={homeworkCounts[lesson?.id] || 0} color="primary">
                                             <AddHomeWorkIcon color="action"/>
@@ -92,9 +116,6 @@ export default function StudentHomePage(props : Readonly<Props>){
                     ))}
                 </div>
             </div>
-
-
         </>
-    )
-        ;
+    );
 }

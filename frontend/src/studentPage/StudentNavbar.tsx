@@ -21,7 +21,7 @@ export type Props = {
     setLessons: React.Dispatch<React.SetStateAction<Lesson[]>>;
 };
 const lessonService=new LessonService();
-export default function StudentNavbar(props : Readonly<Props>, ){
+export default function StudentNavbar(props : Readonly<Props>){
     const navigate=useNavigate();
     const [selectedLesson,setSelectedLesson]=useState<Lesson>({id: '',
         name: '',
