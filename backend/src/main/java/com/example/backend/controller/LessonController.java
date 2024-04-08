@@ -43,4 +43,8 @@ public class LessonController {
     public void deleteAttendance(@PathVariable String lessonId,@RequestBody AttendanceDTO attendance){
         lessonService.deleteAttendance(lessonId, attendance);
     }
+    @GetMapping("/{lessonId}")
+    public List<AttendanceDTO> getAllAttendanceByLessonId(@PathVariable String lessonId){
+        return lessonService.getAllAnnouncementByLessonId(lessonId);
+    }
 }

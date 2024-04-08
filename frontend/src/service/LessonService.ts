@@ -16,4 +16,7 @@ export default class LessonService {
             data: announcement
         });
     }
+    getAllAnnouncementByLessonId(lessonId: string){
+        return axios.get(`/api/lessons/${lessonId}`);
+    }
 }

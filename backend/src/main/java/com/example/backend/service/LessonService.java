@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Optional;
 
 
-
 @Service
 @RequiredArgsConstructor
 public class LessonService {
@@ -66,5 +65,14 @@ public class LessonService {
             lesson.getAttendanceList().removeIf(a -> a.equals(attendance));
             lessonRepository.save(lesson);
         }
+    }
+
+    public List<AttendanceDTO> getAllAnnouncementByLessonId(String lessonId) {
+
+        Lesson lesson = lessonRepository.findById(lessonId).orElseThrow();
+
+        return lesson.getAttendanceList().stream()
+                .map(attendance -> new AttendanceDTO(attendance.getDescription(), attendance.getStatus()))
+                .toList();
     }
 }

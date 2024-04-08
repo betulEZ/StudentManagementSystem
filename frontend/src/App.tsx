@@ -1,8 +1,9 @@
-import { Link, Route, Routes, Navigate } from "react-router-dom";
+import {Link, Route, Routes, Navigate} from "react-router-dom";
 import TeacherHomePage from "./teacherPage/TeacherHomePage";
 import StudentList from "./teacherPage/StudentList.tsx";
 import HomeworkAdd from "./teacherPage/HomeworkAdd.tsx";
 import StudentHomePage from "./studentPage/StudentHomePage.tsx";
+import Announcement from "./studentPage/Announcement.tsx";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import RegisterPage from "./RegisterPage.tsx";
@@ -79,7 +80,8 @@ export default function App() {
                 <Route path="/teacher/add-attendance" element={<AddAnnouncement logout={logout}/>}  />
                 <Route path={'/student/:studentId'} element={<StudentHomePage studentId={appUser?.studentId ?? ''} logout={logout}/>} />
                 <Route path={'/homeworks/:lessonId'} element={<HomeworkPage studentId={appUser?.studentId ?? ''} logout={logout}/>} />
-
+                <Route path={`/student/:studentId/announcement/:lessonId`} element={<Announcement studentId={appUser?.studentId ?? ''} logout={logout}/>} />
             </Routes>
+
     );
 }
