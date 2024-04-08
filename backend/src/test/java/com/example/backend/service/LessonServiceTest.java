@@ -116,4 +116,26 @@ class LessonServiceTest {
 
         verify(lessonRepository).save(lesson);
     }
+    @Test
+    void testGetAllAnnouncementByLessonId() {
+        // GIVEN
+        String lessonId = "lesson123";
+        Lesson lesson = new Lesson();
+        lesson.setId(lessonId);
+        AttendanceDTO attendance1 = new AttendanceDTO("description1", AttendanceStatus.LOW);
+        AttendanceDTO attendance2 = new AttendanceDTO("description2", AttendanceStatus.HIGH);
+        lesson.setAttendanceList(Arrays.asList(attendance1, attendance2));
+
+        // WHEN
+        when(lessonRepository.findById(lessonId)).thenReturn(java.util.Optional.of(lesson));
+
+        List<AttendanceDTO> result = lessonService.getAllAnnouncementByLessonId(lessonId);
+
+        // THEN
+        assertEquals(2, result.size());
+        assertEquals("description1", result.get(0).getDescription());
+        assertEquals(AttendanceStatus.LOW, result.get(0).getStatus());
+        assertEquals("description2", result.get(1).getDescription());
+        assertEquals( AttendanceStatus.HIGH, result.get(1).getStatus());
+    }
 }
