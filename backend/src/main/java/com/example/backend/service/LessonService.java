@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -74,6 +73,6 @@ public class LessonService {
 
         return lesson.getAttendanceList().stream()
                 .map(attendance -> new AttendanceDTO(attendance.getDescription(), attendance.getStatus()))
-                .collect(Collectors.toList());
+                .toList();
     }
 }
