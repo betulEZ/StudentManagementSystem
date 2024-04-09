@@ -4,6 +4,7 @@
     display: flex; /* Flexbox'u etkinleştir */
     flex-direction: column; /* Sütun yönlendirmesi */
     align-items: center; /* Öğeleri yatay eksende ortala */
+    padding-top: 160px;
 }
 .drawer .MuiListItemIcon-root,
 .drawer .MuiListItemText-primary {
@@ -15,4 +16,15 @@
 .drawer .MuiListItemIcon-root {
     min-width: 32px; /* Ikonun minimum genişliğini azalt */
     margin-right: 4px; /* Sağ kenar boşluğunu azalt */
+}
+.drawer .MuiListItem-root:not(:last-child) {
+    margin-bottom: 24px; /* Sonraki elemanın altında boşluk bırak */
+}
+.drawer .MuiButton-root:hover {
+    background-color: darkgrey;
+    color: white;
+}
+.logout-button:hover {
+    background-color: darkgrey !important;
+    color: white !important;
 }

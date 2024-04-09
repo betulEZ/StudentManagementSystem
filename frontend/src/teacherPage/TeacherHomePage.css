@@ -4,10 +4,20 @@
     align-items: center;
     flex-direction: column;
     padding-top: 50px;
+
 }
 .box-scope{
     min-height:80px;
     display:flex;
     justify-content:space-between;
     align-items:center;
+}
+.div-forCard{
+    display: flex;
+    justify-content: space-between;
+}
+.card-two{
+    min-width: 270px;
+    height:130px;
+    padding: 20px;
 }

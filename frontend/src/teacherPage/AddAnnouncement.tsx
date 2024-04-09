@@ -3,7 +3,7 @@ import {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {Attendance, AttendanceStatus, Lesson} from "../types/Lesson.ts";
 import LessonService from "../service/LessonService.ts";
 import {
-    Box,
+    Box, Button,
     FormControl,
     InputLabel,
     MenuItem,
@@ -70,43 +70,51 @@ export default function AddAnnouncement(props : Readonly<Props>){
     }
     return (
         <>
-        <TeacherNavbar logout={props.logout}></TeacherNavbar><Box sx={{display: 'flex', justifyContent: 'center'}}>
-         <form onSubmit={handleOnSubmit}>
-             <FormControl className="form-style" sx={{m: 1, width: 300, display: 'flex', justifyContent: 'center'}}>
-                 <InputLabel>Lessons</InputLabel>
-                 <Select
-                     value={selectedLesson.id}
-                     onChange={handleLessonChange}
-                     input={<OutlinedInput label="Lessons"/>}
-                 >
-                     {lessons.map((lesson) => (
-                         <MenuItem
-                             key={lesson.id}
-                             value={lesson.id}
-                         >
-                             {lesson.name}
-                         </MenuItem>
-                     ))}
-                 </Select>
-                 <label htmlFor="description">Description:</label>
-                 <textarea
-                     id="description"
-                     name="description"
-                     value={form.description}
-                     onChange={handleChangeDescription}
-                     required
-                 />
-                 <label htmlFor="status">Status</label>
-                 <select value={form.status} onChange={handleChangeAttendanceStatus}>
-                     {Object.keys(AttendanceStatus).map((status) => (
-                         <option key={status}
-                                 value={AttendanceStatus[status as keyof typeof AttendanceStatus]}>{status}</option>
-                     ))}
-                 </select>
-                 <button type="submit">Add Announcement</button>
-             </FormControl>
-         </form>
-        </Box>
+        <TeacherNavbar logout={props.logout}></TeacherNavbar>
+            <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '80px', padding: '20px' }}>
+                <form onSubmit={handleOnSubmit} className="custom-form">
+                    <FormControl className="form-style">
+                        <InputLabel>Lessons</InputLabel>
+                        <Select
+                            value={selectedLesson.id}
+                            onChange={handleLessonChange}
+                            input={<OutlinedInput label="Lessons" />}
+                            sx={{ width: '100%', textAlign: 'center' }}
+                        >
+                            {lessons.map((lesson) => (
+                                <MenuItem
+                                    key={lesson.id}
+                                    value={lesson.id}
+                                >
+                                    {lesson.name}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                        <br />
+                        <label htmlFor="description">Description:</label>
+                        <br />
+                        <textarea
+                            id="description"
+                            name="description"
+                            value={form.description}
+                            onChange={handleChangeDescription}
+                            required
+                            className="custom-textarea"
+                        />
+                        <br />
+                        <label htmlFor="status">Status:</label>
+                        <br />
+                        <select value={form.status} onChange={handleChangeAttendanceStatus} className="custom-select">
+                            {Object.keys(AttendanceStatus).map((status) => (
+                                <option key={status} value={AttendanceStatus[status as keyof typeof AttendanceStatus]}>{status}</option>
+                            ))}
+                        </select>
+                        <br />
+                        <Button variant="contained" type="submit" className="custom-button">Add Announcement</Button>
+                    </FormControl>
+                </form>
+            </Box>
+
         </>
     );
 }

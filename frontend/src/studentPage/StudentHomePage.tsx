@@ -95,11 +95,15 @@ export default function StudentHomePage(props : Readonly<Props>){
                             </CardContent>
                             <div className="card-container">
                                 <div>
-                                    <DeleteIcon style={{color: 'red'}} onClick={() => handleLessonDelete(lesson)}/>
+                                    <DeleteIcon style={{color: 'red'}} onClick={() => {
+                                        if (window.confirm('Are you sure?')) {
+                                            handleLessonDelete(lesson);
+                                        }
+                                    }}/>
                                 </div>
                                 <div>
                                     <Link to={`/student/${props.studentId}/announcement/${lesson.id}`}>
-                                        <Badge badgeContent={announcementCounts[lesson?.id] || 0} color="primary" >
+                                        <Badge badgeContent={announcementCounts[lesson?.id] || 0} color="primary">
                                             <AnnouncementIcon color="action"/>
                                         </Badge>
                                     </Link>

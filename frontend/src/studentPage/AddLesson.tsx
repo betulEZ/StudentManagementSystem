@@ -2,7 +2,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import DialogContent from "@mui/material/DialogContent";
-import {Button, Dialog, MenuItem, Select, SelectChangeEvent} from "@mui/material";
+import {Button, Dialog, InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
 import DialogActions from "@mui/material/DialogActions";
 
 import {styled} from "@mui/material/styles";
@@ -37,7 +37,7 @@ export default function AddLesson(props: Readonly<Props>){
                 open={props.open}
             >
                 <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-                    Modal title
+                   Add Lesson
                 </DialogTitle>
                 <IconButton
                     aria-label="close"
@@ -52,10 +52,16 @@ export default function AddLesson(props: Readonly<Props>){
                     <CloseIcon />
                 </IconButton>
                 <DialogContent dividers>
+                    <InputLabel>Select a Lesson</InputLabel>
                     <Select
-                       value={props.selectedLesson.id}
+                        labelId="lesson-label"
+                        value={props.selectedLesson.id}
                         onChange={props.changeLesson}
+                        displayEmpty
                     >
+                        <MenuItem disabled value="">
+                            Lessons
+                        </MenuItem>
                         {props.lessons.map((lesson) => (
                             <MenuItem
                                 key={lesson.id}

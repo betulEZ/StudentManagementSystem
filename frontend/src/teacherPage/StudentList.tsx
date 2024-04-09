@@ -86,7 +86,6 @@ export default function StudentList(props : Readonly<Props>){
     const handleClose = (): void =>{
         setOpen(false);
     }
-
     return(
         <>
             <TeacherNavbar logout={props.logout}/>
@@ -139,7 +138,8 @@ export default function StudentList(props : Readonly<Props>){
                 <br/>
                 <Button onClick={handleButtonClick} style={{backgroundColor: 'deepskyblue', color: 'white'}}>Create
                     Student</Button>
-                <div style={{ marginBottom: '20px' }} /> {}
+                <div style={{marginBottom: '20px'}}/>
+                {}
                 <CreateStudent isInputVisible={inputVisible} setStudents={setStudents}/>
             </div>
 
