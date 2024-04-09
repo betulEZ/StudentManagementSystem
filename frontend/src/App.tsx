@@ -64,14 +64,12 @@ export default function App() {
                                 )}
                             </>
                         ) : (
-                            <>
                                 <div className="center-container">
                                     <div className="button-container">
                                         <Link to={"/login"} className="button">Login</Link>
                                         <Link to={"/register"} className="button">Register</Link>
                                     </div>
                                 </div>
-                            </>
                         )}
                     </>
                 )}/>
