@@ -1,5 +1,6 @@
 import {ChangeEvent, FormEvent, useState} from "react";
 import axios from "axios";
+import './Register.css';
 
 type AppUserDto = {
     username: string,
@@ -33,13 +34,20 @@ export default function RegisterPage(){
         register();
     }
 
-    return(
-        <form onSubmit={handleSubmit}>
-            <input onChange={handleChange} name={"username"} placeholder={"Username"} value={appUserDto.username} type={"text"}/>
-            <input onChange={handleChange} name={"password"} placeholder={"Password"} value={appUserDto.password} type={"password"}/>
-            <input onChange={handleChange} name={"email"} placeholder={"Email"} value={appUserDto.email} type={"email"}/>
-            <input onChange={handleChange} name={"avatarUrl"} placeholder={"Avatar Url"} value={appUserDto.avatarUrl} type={"url"}/>
-            <button>Register NOW!</button>
-        </form>
+    return (
+        <div className="form-container">
+            <form onSubmit={handleSubmit}>
+                <input onChange={handleChange} name={"username"} placeholder={"Username"} value={appUserDto.username}
+                       type={"text"}/>
+                <input onChange={handleChange} name={"password"} placeholder={"Password"} value={appUserDto.password}
+                       type={"password"}/>
+                <input onChange={handleChange} name={"email"} placeholder={"Email"} value={appUserDto.email}
+                       type={"email"}/>
+                <input onChange={handleChange} name={"avatarUrl"} placeholder={"Avatar Url"}
+                       value={appUserDto.avatarUrl} type={"url"}/>
+                <button>Register NOW!</button>
+            </form>
+        </div>
+
     )
 }

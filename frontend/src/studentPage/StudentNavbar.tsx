@@ -1,7 +1,6 @@
 import {
     AppBar,
     Box,
-    Button,
     SelectChangeEvent,
     Toolbar
 } from "@mui/material";
@@ -13,7 +12,6 @@ import {AttendanceStatus, Lesson} from "../types/Lesson.ts";
 import axios from "axios";
 import LessonService from "../service/LessonService.ts";
 import AddLesson from "./AddLesson.tsx";
-
 
 export type Props = {
     studentId: string,
@@ -84,32 +82,43 @@ export default function StudentNavbar(props : Readonly<Props>){
     }
 
     return(
-            <Box sx={{ flexGrow:  1}}>
-                <AppBar  style={{ backgroundColor: 'darkgrey' }}>
-                    <Toolbar >
-                        <Typography   className="typography"  variant="h6"
-                                    component={Link} to={`/student/${props.studentId}`}
+        <Box>
+            <AppBar style={{ backgroundColor: 'darkgrey'}}>
+                <Toolbar>
+                    <Typography component={Link} to={`/student/${props.studentId}`}>
+                      <button className="typography">
+                        Lessons
+                      </button>
+                    </Typography>
+                    <Box sx={{ marginRight: '76px' }} />
+                    <React.Fragment>
+                        <button className="typography"
+
+                            onClick={handleClickOpen}
                         >
-                            Lessons
-                        </Typography>
-                        <React.Fragment>
-                            <Button variant="outlined" onClick={handleClickOpen}>
-                               Add Lesson
-                            </Button>
+                            Add Lesson
+                        </button>
+                    </React.Fragment>
+                    <AddLesson
+                        open={open}
+                        handleCloseWindow={handleCloseWindow}
+                        selectedLesson={selectedLesson}
+                        changeLesson={changeLesson}
+                        handleUpdate={handleUpdate}
+                        lessons={lessons}
+                    />
+                    <Box sx={{ flexGrow: 1 }} />
+                    <button  className="typography"
+                             onClick={handleLogoutClick} color="inherit"
+                    >
+                        Logout
+                    </button>
+                </Toolbar>
+            </AppBar>
+        </Box>
 
-                        </React.Fragment>
-                       <AddLesson
-                           open={open}
-                           handleCloseWindow={handleCloseWindow}
-                           selectedLesson={selectedLesson}
-                           changeLesson={changeLesson}
-                           handleUpdate={handleUpdate}
-                           lessons={lessons}
-                       />
 
-                        <Button  onClick={handleLogoutClick} color="inherit">Logout</Button>
-                    </Toolbar>
-                </AppBar>
-            </Box>
+
+
     );
 }

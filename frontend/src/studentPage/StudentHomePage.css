@@ -1,16 +1,20 @@
 .card {
-   margin-bottom: 60px;
-    width: 300px;
-    height: 160px;
+    height: 180px;
+    width: calc(33.33% - 80px);
+    margin-bottom: 100px;
+    border: 6px solid wheat;
 }
 .lesson-container{
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
     align-items: center;
+    padding: 40px 100px; /* Add padding on the top and bottom, 100px on the left and right */
+    margin: 70px 100px 0; /* Add margin to create space on the left, right, and top */
 }
 .card-container {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    padding: 32px;
+    padding: 50px;
 }

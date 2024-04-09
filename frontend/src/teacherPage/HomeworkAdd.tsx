@@ -1,5 +1,5 @@
 import {
-    Box,
+    Box, Button,
     FormControl,
     InputLabel,
     MenuItem,
@@ -14,6 +14,7 @@ import {useState, useEffect, ChangeEvent, FormEvent} from "react";
 import {Homework} from "../types/Homework.ts";
 import HomeworkService from "../service/HomeworkService.ts";
 import TeacherNavbar from "./TeacherNavbar.tsx";
+import './HomeworkAdd.css';
 
 const lessonService = new LessonService();
 const homeworkService = new HomeworkService();
@@ -96,14 +97,15 @@ export default function HomeworkAdd(props : Readonly<Props>) {
     return (
         <>
             <TeacherNavbar logout={props.logout}/>
-            <Box sx={{display: 'flex', justifyContent: 'center'}}>
-                <form onSubmit={handleOnSubmit}>
-                    <FormControl sx={{m: 1, width: 300, display: 'flex', justifyContent: 'center'}}>
+            <Box className="box" >
+                <form onSubmit={handleOnSubmit} >
+                    <FormControl className="form-control">
                         <InputLabel>Lessons</InputLabel>
                         <Select
                             value={selectedLesson.id}
                             onChange={handleLessonChange}
                             input={<OutlinedInput label="Lessons"/>}
+                            sx={{textAlign: 'center'}}
                         >
                             {lessons.map((lesson) => (
                                 <MenuItem
@@ -114,18 +116,25 @@ export default function HomeworkAdd(props : Readonly<Props>) {
                                 </MenuItem>
                             ))}
                         </Select>
+                        <br/>
                         <label htmlFor="title">Title:</label>
+                        <br/>
                         <input type="text" id="title" name="title" value={formData.title} onChange={handleChangeTitle}
-                               required/>
+                               required className="input" />
+                        <br/>
                         <label htmlFor="description">Description:</label>
+                        <br/>
                         <textarea
                             id="description"
                             name="description"
                             value={formData.description}
                             onChange={handleChangeDescription}
                             required
+                            className="text-area"
                         />
-                        <label htmlFor="deadline">Deadline</label>
+                        <br/>
+                        <label htmlFor="deadline">Deadline:</label>
+                        <br/>
                         <TextField
                             type="date"
                             value={formData.deadline.toISOString().split('T')[0]} // Format the date as YYYY-MM-DD for input
@@ -134,10 +143,12 @@ export default function HomeworkAdd(props : Readonly<Props>) {
                                 shrink: true,
                             }}
                         />
-                        <button type="submit">Add Homework</button>
+                        <br/>
+                        <Button variant="contained" type="submit">Add Homework</Button>
                     </FormControl>
                 </form>
             </Box>
+
         </>
-);
+    );
 }

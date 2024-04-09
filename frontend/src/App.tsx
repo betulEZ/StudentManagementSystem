@@ -10,7 +10,7 @@ import RegisterPage from "./RegisterPage.tsx";
 import LoginPage from "./LoginPage.tsx";
 import HomeworkPage from "./studentPage/HomeworkPage.tsx";
 import AddAnnouncement from "./teacherPage/AddAnnouncement.tsx";
-
+import './App.css';
 type AppUser = {
     id: string,
     username: string,
@@ -64,15 +64,16 @@ export default function App() {
                                 )}
                             </>
                         ) : (
-                            <>
-                                <Link to={"/login"}>Login</Link>
-                                <br />
-                                <Link to={"/register"}>Register</Link>
-                            </>
+                                <div className="center-container">
+                                    <div className="button-container">
+                                        <Link to={"/login"} className="button">Login</Link>
+                                        <Link to={"/register"} className="button">Register</Link>
+                                    </div>
+                                </div>
                         )}
                     </>
-                )} />
-                <Route path={"/register"} element={<RegisterPage />} />
+                )}/>
+                <Route path={"/register"} element={<RegisterPage/>}/>
                 <Route path={"/login"} element={<LoginPage fetchMe={fetchMe} />} />
                 <Route path="/teacher" element={<TeacherHomePage logout={logout}/>} />
                 <Route path="/teacher/studentlist" element={<StudentList logout={logout}/>}  />
