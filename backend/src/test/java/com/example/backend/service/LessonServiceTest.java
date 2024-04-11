@@ -139,7 +139,7 @@ class LessonServiceTest {
         assertEquals( AttendanceStatus.HIGH, result.get(1).getStatus());
     }
     @Test
-    public void testGetAllMessages() {
+    void testGetAllMessages() {
         // GIVEN
         String lessonId = "lessonId";
 

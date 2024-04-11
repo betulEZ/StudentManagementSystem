@@ -66,8 +66,8 @@ export default function Chat(props: Readonly<Props>){
             <Paper sx={{width: 'fit-content', maxWidth: '100%', p: 6, m: 'auto', mt: 15}}>
                 <Box sx={{display: 'flex', flexDirection: 'column', width: '600px', height: '700px'}}>
                     <Box sx={{flex: 1, overflowY: 'auto', mx: 1}}>
-                        {messages.map((message, index) => (
-                            <Box key={index} sx={{display: 'flex', flexDirection: 'column', mb: 1}}>
+                        {messages.map((message) => (
+                            <Box key={message.message} sx={{display: 'flex', flexDirection: 'column', mb: 1}}>
                                 <Box sx={{display: 'flex', alignItems: 'flex-start', justifyContent: message.student.id === props.studentId ? 'flex-end' : 'flex-start'}}>
                                     <Paper sx={{p: 3, maxWidth: '90%', bgcolor: message.student.id === props.studentId ? 'lightgreen' : 'orange'}}>
                                         <Typography variant="body1" sx={{fontSize: '1.2rem'}}>
