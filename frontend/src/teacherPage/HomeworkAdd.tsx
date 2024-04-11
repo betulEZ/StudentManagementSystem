@@ -24,10 +24,13 @@ export type Props = {
 }
 export default function HomeworkAdd(props : Readonly<Props>) {
     const [lessons, setLessons] = useState<Lesson[]>([]);
-    const [selectedLesson,setSelectedLesson]=useState<Lesson>({   id: '',
+    const [selectedLesson, setSelectedLesson] = useState<Lesson>({
+        id: '',
         name: '',
         studentList: [],
-        attendanceList: [{ description: '', status: AttendanceStatus.LOW }]});
+        attendanceList: [{ description: '', status: AttendanceStatus.LOW }],
+        messageList: []
+    });
     const [formData, setFormData] = useState<Homework>({
         title: '',
         description: '',
@@ -35,7 +38,9 @@ export default function HomeworkAdd(props : Readonly<Props>) {
         lesson: { id: '',
             name: '',
             studentList: [],
-            attendanceList: [{ description: '', status: AttendanceStatus.LOW }] }
+            attendanceList: [{ description: '', status: AttendanceStatus.LOW }] ,
+            messageList: []
+        }
     });
 
 
@@ -58,7 +63,8 @@ export default function HomeworkAdd(props : Readonly<Props>) {
                     id: selectedLesson.id,
                     name: selectedLesson.name,
                     studentList: selectedLesson.studentList,
-                    attendanceList: selectedLesson.attendanceList
+                    attendanceList: selectedLesson.attendanceList,
+                    messageList: []
                 }
             }));
         }
@@ -91,7 +97,9 @@ export default function HomeworkAdd(props : Readonly<Props>) {
         setFormData({ title: '', description: '', deadline: new Date(),  lesson: { id: '',
                 name: '',
                 studentList: [],
-                attendanceList: [{ description: '', status: AttendanceStatus.LOW }] } } );
+                attendanceList: [{ description: '', status: AttendanceStatus.LOW }],
+                messageList: []
+        } } );
     };
 
     return (

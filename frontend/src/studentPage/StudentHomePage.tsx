@@ -13,6 +13,7 @@ import AddHomeWorkIcon from "@mui/icons-material/AddHomeWork";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import AnnouncementIcon from '@mui/icons-material/Announcement';
+import CampaignIcon from '@mui/icons-material/Campaign';
 
 export type Props = {
     studentId: string,
@@ -102,9 +103,14 @@ export default function StudentHomePage(props : Readonly<Props>){
                                     }}/>
                                 </div>
                                 <div>
+                                    <Link to={`/student/${props.studentId}/message/${lesson.id}`}>
+                                            <AnnouncementIcon color="action"/>
+                                    </Link>
+                                </div>
+                                <div>
                                     <Link to={`/student/${props.studentId}/announcement/${lesson.id}`}>
                                         <Badge badgeContent={announcementCounts[lesson?.id] || 0} color="primary">
-                                            <AnnouncementIcon color="action"/>
+                                            <CampaignIcon color="action"/>
                                         </Badge>
                                     </Link>
                                 </div>

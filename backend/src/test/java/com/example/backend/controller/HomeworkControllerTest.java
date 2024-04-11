@@ -32,7 +32,7 @@ class HomeworkControllerTest {
     @Test
     void saveNewHomework() throws Exception {
         // GIVEN
-        Lesson lesson=new Lesson(null,"Math",null,null);
+        Lesson lesson=new Lesson(null,"Math",null,null,null);
         LocalDate date = LocalDate.of(2024, 5, 2);
         HomeworkDTO requestBody =new HomeworkDTO("Homework Title","Description of the homework",date,lesson);
 

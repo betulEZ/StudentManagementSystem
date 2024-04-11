@@ -140,7 +140,9 @@ export default function StudentList(props : Readonly<Props>){
                     Student</Button>
                 <div style={{marginBottom: '20px'}}/>
                 {}
+                <div className="create-student">
                 <CreateStudent isInputVisible={inputVisible} setStudents={setStudents}/>
+                </div>
             </div>
 
         </>

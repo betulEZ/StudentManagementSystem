@@ -1,5 +1,5 @@
 import axios from "axios";
-import {Attendance} from "../types/Lesson.ts";
+import {Attendance, Message} from "../types/Lesson.ts";
 
 export default class LessonService {
     getAllLessons() {
@@ -18,5 +18,11 @@ export default class LessonService {
     }
     getAllAnnouncementByLessonId(lessonId: string){
         return axios.get(`/api/lessons/${lessonId}`);
+    }
+    getAllMessageByLessonId(lessonId: string){
+        return axios.get(`/api/lessons/message/${lessonId}`);
+    }
+    saveNewMessage(lessonId : string ,message:Message) {
+        return axios.post(`/api/lessons/message/${lessonId}`,message);
     }
 }

@@ -39,7 +39,7 @@ class LessonControllerTest {
     @Test
     void saveNewLesson() throws Exception {
         // GIVEN
-        LessonDTO requestBody = new  LessonDTO("Lesson1",null,null);
+        LessonDTO requestBody = new  LessonDTO("Lesson1",null,null,null);
 
         // WHEN & THEN
         mvc.perform(MockMvcRequestBuilders.post("/api/lessons")
@@ -53,7 +53,7 @@ class LessonControllerTest {
     void getAllLessons() throws Exception {
        // GIVEN
         List<Lesson> lessonList = new ArrayList<>();
-        lessonList.add(new Lesson("101", "Math", null,null));
+        lessonList.add(new Lesson("101", "Math", null,null,null));
 
         lessonRepository.saveAll(lessonList);
 
@@ -69,7 +69,7 @@ class LessonControllerTest {
         List<AttendanceDTO> expectedAttendanceList = Arrays.asList(
                 new AttendanceDTO("Description1", AttendanceStatus.LOW)
         );
-        Lesson lesson = new Lesson("2", "title", null, expectedAttendanceList);
+        Lesson lesson = new Lesson("2", "title", null, expectedAttendanceList,null);
         lessonRepository.save(lesson);
 
         // WHEN & THEN

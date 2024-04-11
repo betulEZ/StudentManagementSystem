@@ -24,12 +24,16 @@ export default function StudentNavbar(props : Readonly<Props>){
     const [selectedLesson,setSelectedLesson]=useState<Lesson>({id: '',
         name: '',
         studentList: [],
-        attendanceList: [{ description: '', status: AttendanceStatus.LOW }]});
+        attendanceList: [{ description: '', status: AttendanceStatus.LOW }],
+        messageList: []
+    });
     const [lessons, setLessons] = useState<Lesson[]>([]);
     const [formData, setFormData] = useState<Lesson>({id: '',
         name: '',
         studentList: [],
-        attendanceList: [{ description: '', status: AttendanceStatus.LOW }]});
+        attendanceList: [{ description: '', status: AttendanceStatus.LOW }],
+        messageList: []
+    });
 
 
     useEffect(() => {

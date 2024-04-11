@@ -5,6 +5,7 @@ export type Lesson ={
     name: string;
     studentList: Student[];
     attendanceList : Attendance[];
+    messageList : Message[];
 }
 export type Attendance ={
     description: string;
@@ -14,4 +15,8 @@ export enum AttendanceStatus{
     LOW="LOW",
     MEDIUM="MEDIUM",
     HIGH="HIGH"
+}
+export type Message={
+    message: string;
+    student: Student;
 }

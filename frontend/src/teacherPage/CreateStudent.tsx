@@ -122,7 +122,7 @@ export default function CreateStudent(props : Readonly<Props>){
                                 variant="outlined"
                             />
                         </div>
-                        <Button variant="contained" type="submit" className="button-design" style={{backgroundColor: 'green'}}>
+                        <Button variant="contained" type="submit" className="button-design" style={{backgroundColor: 'green', alignSelf: 'flex-start'}}>
                             Save
                         </Button>
                     </>

@@ -4,6 +4,7 @@ import {useEffect, useState} from "react"
 import {useParams} from "react-router-dom";
 import LessonService from "../service/LessonService.ts";
 import {Box, Card, CardContent} from "@mui/material";
+import './Announcement.css';
 
 export type Props = {
     studentId:string;
