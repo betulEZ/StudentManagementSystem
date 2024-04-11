@@ -4,8 +4,8 @@ import './TeacherNavbar.css';
 import {Link, useNavigate} from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import AddHomeWorkIcon from '@mui/icons-material/AddHomeWork';
-import AnnouncementIcon from '@mui/icons-material/Announcement';
 import profileImage from "../image/profile.jpg";
+import CampaignIcon from '@mui/icons-material/Campaign';
 
 export type Props = {
     logout():void
@@ -47,7 +47,7 @@ export default function TeacherNavbar(props : Readonly<Props>){
                     </ListItem>
                     <ListItem button component={Link} to="/teacher/add-attendance">
                         <ListItemIcon>
-                            <AnnouncementIcon/>
+                            <CampaignIcon/>
                         </ListItemIcon>
                         <ListItemText primary="Announcement"/>
                     </ListItem>

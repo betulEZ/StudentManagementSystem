@@ -4,7 +4,7 @@ import {useParams} from "react-router-dom";
 import {Homework} from "../types/Homework.ts";
 import StudentNavbar from "./StudentNavbar.tsx";
 import {Lesson} from "../types/Lesson.ts";
-
+import './HomeworkPage.css';
 const homeworkService=new HomeworkService();
 export type Props = {
     studentId: string,

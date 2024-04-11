@@ -19,7 +19,7 @@ class HomeworkServiceTest {
     @Test
     void saveHomework() {
         // GIVEN
-        Lesson lesson=new Lesson("Math101","Math",null,null);
+        Lesson lesson=new Lesson("Math101","Math",null,null,null);
         LocalDate date = LocalDate.of(2024, 5, 2);
         Homework expected =new Homework("1","name","description",date,lesson);
         HomeworkDTO homeworkDTO =new HomeworkDTO("name","description",date,lesson);

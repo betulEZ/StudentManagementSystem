@@ -11,6 +11,7 @@ import LoginPage from "./LoginPage.tsx";
 import HomeworkPage from "./studentPage/HomeworkPage.tsx";
 import AddAnnouncement from "./teacherPage/AddAnnouncement.tsx";
 import './App.css';
+import Chat from "./studentPage/Chat.tsx";
 type AppUser = {
     id: string,
     username: string,
@@ -82,6 +83,7 @@ export default function App() {
                 <Route path={'/student/:studentId'} element={<StudentHomePage studentId={appUser?.studentId ?? ''} logout={logout}/>} />
                 <Route path={'/homeworks/:lessonId'} element={<HomeworkPage studentId={appUser?.studentId ?? ''} logout={logout}/>} />
                 <Route path={`/student/:studentId/announcement/:lessonId`} element={<Announcement studentId={appUser?.studentId ?? ''} logout={logout}/>} />
+                <Route path={'/student/:studentId/message/:lessonId'} element={<Chat studentId={appUser?.studentId ?? ''} logout={logout}/>} />
             </Routes>
 
     );

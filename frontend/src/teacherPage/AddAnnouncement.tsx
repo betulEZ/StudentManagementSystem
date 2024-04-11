@@ -19,10 +19,13 @@ export type Props = {
 };
 export default function AddAnnouncement(props : Readonly<Props>){
     const [lessons, setLessons] = useState<Lesson[]>([]);
-    const [selectedLesson,setSelectedLesson]=useState<Lesson>({   id: '',
+    const [selectedLesson, setSelectedLesson] = useState<Lesson>({
+        id: '',
         name: '',
         studentList: [],
-        attendanceList: [{ description: '', status: AttendanceStatus.LOW }]});
+        attendanceList: [{ description: '', status: AttendanceStatus.LOW }],
+        messageList: []
+    });
     const [form, setForm] = useState<Attendance>({ description: '', status: AttendanceStatus.LOW });
 
     useEffect(() => {

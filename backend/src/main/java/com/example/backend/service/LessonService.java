@@ -23,7 +23,7 @@ public class LessonService {
     }
 
     public Lesson saveLesson(LessonDTO lessonDTO) {
-        Lesson temp=new Lesson(null,lessonDTO.getName(),lessonDTO.getStudentList(), lessonDTO.getAttendanceList());
+        Lesson temp=new Lesson(null,lessonDTO.getName(),lessonDTO.getStudentList(), lessonDTO.getAttendanceList(),lessonDTO.getMessageList());
         return lessonRepository.save(temp);
     }
 
@@ -74,5 +74,33 @@ public class LessonService {
         return lesson.getAttendanceList().stream()
                 .map(attendance -> new AttendanceDTO(attendance.getDescription(), attendance.getStatus()))
                 .toList();
+    }
+
+    public MessageDTO saveMessage(String lessonId, MessageDTO messageDTO) {
+        Lesson lesson = lessonRepository.findById(lessonId).orElseThrow();
+
+        if (lesson.getMessageList() == null) {
+            lesson.setMessageList(new ArrayList<>());
+        }
+
+        MessageDTO message = new MessageDTO();
+        message.setMessage(messageDTO.getMessage());
+        message.setStudent(messageDTO.getStudent());
+
+        lesson.getMessageList().add(message);
+        lessonRepository.save(lesson);
+        return messageDTO;
+    }
+
+    public List<MessageDTO> getAllMessages(String lessonId) {
+        List<MessageDTO> allMessages = new ArrayList<>();
+        Optional<Lesson> optionalLesson = lessonRepository.findById(lessonId);
+        if (optionalLesson.isPresent()) {
+            Lesson lesson = optionalLesson.get();
+            if (lesson.getMessageList() != null) {
+                allMessages.addAll(lesson.getMessageList());
+            }
+        }
+        return allMessages;
     }
 }

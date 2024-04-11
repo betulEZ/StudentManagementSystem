@@ -11,4 +11,5 @@ public class LessonDTO {
     private String name;
     List<Student> studentList;
     List<AttendanceDTO> attendanceList;
+    List<MessageDTO> messageList;
 }

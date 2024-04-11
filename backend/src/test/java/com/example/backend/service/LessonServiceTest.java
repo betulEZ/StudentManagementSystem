@@ -23,7 +23,7 @@ class LessonServiceTest {
         // GIVEN
         List<Student> studentList=new ArrayList<>();
         studentList.add(new Student("1","name","surname",null));
-        Lesson lessonList = new Lesson("101", "Math", studentList,null);
+        Lesson lessonList = new Lesson("101", "Math", studentList,null,null);
         List<Lesson> expected=List.of(lessonList);
 
         // WHEN
@@ -42,8 +42,8 @@ class LessonServiceTest {
         // GIVEN
         List<Student> studentList=new ArrayList<>();
         studentList.add(new Student("1","name","surname",null));
-        Lesson expected=new Lesson("Math101","Math",studentList,null);
-        LessonDTO lessonDTO=new LessonDTO("Math",studentList,null);
+        Lesson expected=new Lesson("Math101","Math",studentList,null,null);
+        LessonDTO lessonDTO=new LessonDTO("Math",studentList,null,null);
 
         // WHEN
         when(lessonRepository.save(new Lesson(lessonDTO))).thenReturn(expected);
@@ -59,8 +59,8 @@ class LessonServiceTest {
         Student student = new Student();
         student.setId(studentId);
         List<Lesson> lessonList = Arrays.asList(
-                new Lesson(null,"Math",null,null),
-                new Lesson(null,"Science",null,null)
+                new Lesson(null,"Math",null,null,null),
+                new Lesson(null,"Science",null,null,null)
         );
         student.setLessonList(lessonList);
 
@@ -138,4 +138,51 @@ class LessonServiceTest {
         assertEquals("description2", result.get(1).getDescription());
         assertEquals( AttendanceStatus.HIGH, result.get(1).getStatus());
     }
+    @Test
+    void testGetAllMessages() {
+        // GIVEN
+        String lessonId = "lessonId";
+
+        Lesson lesson = new Lesson();
+        lesson.setId(lessonId);
+
+        List<MessageDTO> messageList = new ArrayList<>();
+        messageList.add(new MessageDTO("Message 1",null));
+        messageList.add(new MessageDTO("Message 2",null));
+        lesson.setMessageList(messageList);
+
+        // WHEN
+        when(lessonRepository.findById(lessonId)).thenReturn(Optional.of(lesson));
+
+        List<MessageDTO> result = lessonService.getAllMessages(lessonId);
+
+        // THEN
+        assertEquals(messageList.size(), result.size());
+    }
+    @Test
+    void testSaveMessage() {
+        // GIVEN
+        String lessonId = "lessonId";
+        MessageDTO messageDTO = new MessageDTO("Hello, world!",null);
+        messageDTO.setStudent(new Student("sampleStudentId", "John Doe",null,null));
+
+        Lesson lesson = new Lesson();
+        lesson.setId(lessonId);
+
+        when(lessonRepository.findById(lessonId)).thenReturn(Optional.of(lesson));
+
+        // WHEN
+        MessageDTO result = lessonService.saveMessage(lessonId, messageDTO);
+
+        // THEN
+        assertNotNull(result);
+        assertEquals(messageDTO, result);
+
+        assertNotNull(result.getStudent());
+        assertEquals("sampleStudentId", result.getStudent().getId());
+        assertEquals("John Doe", result.getStudent().getName());
+
+        verify(lessonRepository, times(1)).save(lesson);
+    }
+
 }

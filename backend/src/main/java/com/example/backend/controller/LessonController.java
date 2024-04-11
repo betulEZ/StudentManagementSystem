@@ -3,6 +3,7 @@ import com.example.backend.exception.StudentNotFoundException;
 import com.example.backend.model.AttendanceDTO;
 import com.example.backend.model.Lesson;
 import com.example.backend.model.LessonDTO;
+import com.example.backend.model.MessageDTO;
 import com.example.backend.service.LessonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -46,5 +47,14 @@ public class LessonController {
     @GetMapping("/{lessonId}")
     public List<AttendanceDTO> getAllAttendanceByLessonId(@PathVariable String lessonId){
         return lessonService.getAllAnnouncementByLessonId(lessonId);
+    }
+    @PostMapping("/message/{lessonId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public MessageDTO saveMessage(@PathVariable String lessonId, @RequestBody MessageDTO message){
+        return lessonService.saveMessage(lessonId,message);
+    }
+    @GetMapping("/message/{lessonId}")
+    public List<MessageDTO> getAllMessages(@PathVariable String lessonId){
+        return lessonService.getAllMessages(lessonId);
     }
 }
