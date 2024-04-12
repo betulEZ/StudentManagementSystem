@@ -63,14 +63,14 @@ export default function Chat(props: Readonly<Props>){
     const handleDelete = async (lessonId: string, message: Message) => {
         if (lessonId) {
             await lessonService.deleteMessage(lessonId, message);
-            const updatedLessons = updateLessons(lessonId, message);
+            const updatedLessons = deleteMessageFromLessons(lessonId, message);
             setLessons(updatedLessons);
             const response = await lessonService.getAllMessageByLessonId(lessonId);
             setMessages(response.data);
             setDescription('');
         }
     }
-    const updateLessons = (lessonId: string, message: Message) => {
+    const deleteMessageFromLessons  = (lessonId: string, message: Message) => {
         return lessons.map(lesson => {
             if (lesson.id === lessonId) {
                 lesson.messageList = lesson.messageList.filter(a => a !== message);
