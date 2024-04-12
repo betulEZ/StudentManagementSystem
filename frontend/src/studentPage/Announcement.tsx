@@ -51,15 +51,15 @@ export default function Announcement(props: Readonly<Props>){
     return(
         <>
             <StudentNavbar studentId={props?.studentId ?? ''} logout={props.logout} setLessons={setLessons}/>
-            <h1>Announcements</h1>
-            <div className="div-scope" >
+            <div className="div-scope">
+                <h3>Announcements</h3>
                 {announcement.map((item) => (
                     <Card key={item.description} style={{
                         marginBottom: '10px',
                         width: '600px',
                         backgroundColor: getColorForStatus(item.status)
                     }}>
-                        <Box className="box-scope" >
+                        <Box className="box-scope">
                             <CardContent>
                                 <h4>{item.description}</h4>
                             </CardContent>

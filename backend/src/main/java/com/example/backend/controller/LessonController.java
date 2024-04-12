@@ -57,4 +57,8 @@ public class LessonController {
     public List<MessageDTO> getAllMessages(@PathVariable String lessonId){
         return lessonService.getAllMessages(lessonId);
     }
+    @DeleteMapping("/delete-message/{lessonId}")
+    public void deleteMessage(@PathVariable String lessonId,@RequestBody MessageDTO messageDTO){
+        lessonService.deleteMessage(lessonId, messageDTO);
+    }
 }

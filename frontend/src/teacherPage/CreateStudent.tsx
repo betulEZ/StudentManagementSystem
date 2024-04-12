@@ -1,9 +1,10 @@
-import {Button, TextField} from "@mui/material";
+import {Button, Snackbar, TextField} from "@mui/material";
 import React, {ChangeEvent, FormEvent, useState} from "react";
 import {AppUser} from "../types/AppUser.ts";
 import StudentService from "../service/StudentService.ts";
 import {Student} from "../types/Student.ts";
 import './CreateStudent.css';
+import MuiAlert from "@mui/material/Alert";
 export type Props = {
     isInputVisible: boolean;
     setStudents: React.Dispatch<React.SetStateAction<Student[]>>;
@@ -17,6 +18,7 @@ export default function CreateStudent(props : Readonly<Props>){
         password: '',
         username: ''
     });
+    const [open, setOpen] = useState(false);
     const handleChangeUsername = (event: ChangeEvent<HTMLTextAreaElement>) => {
         const value = event.target.value;
         setFormData((prevData) => ({
@@ -65,6 +67,10 @@ export default function CreateStudent(props : Readonly<Props>){
             password: '',
             username: ''
         });
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
     };
     return (
         <div className="div-container" >
@@ -125,6 +131,16 @@ export default function CreateStudent(props : Readonly<Props>){
                         <Button variant="contained" type="submit" className="button-design" style={{backgroundColor: 'green', alignSelf: 'flex-start'}}>
                             Save
                         </Button>
+                        <Snackbar
+                            anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                            open={open}
+                            autoHideDuration={6000}
+                            onClose={handleClose}
+                        >
+                            <MuiAlert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                                Student saved successfully!
+                            </MuiAlert>
+                        </Snackbar>
                     </>
                 )
             }

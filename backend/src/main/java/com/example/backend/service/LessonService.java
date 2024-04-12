@@ -103,4 +103,16 @@ public class LessonService {
         }
         return allMessages;
     }
+
+    public void deleteMessage(String lessonId, MessageDTO messageDTO) {
+        Optional<Lesson> optionalLesson = lessonRepository.findById(lessonId);
+        if (optionalLesson.isPresent()) {
+            Lesson lesson = optionalLesson.get();
+            List<MessageDTO> messageList = lesson.getMessageList();
+            messageList.removeIf(a -> a.equals(messageDTO));
+            lesson.setMessageList(messageList);
+            lessonRepository.save(lesson);
+        }
+    }
+
 }

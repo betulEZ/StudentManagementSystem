@@ -6,3 +6,7 @@
     display: flex;
     justify-content: flex-start;
 }
+.table h3{
+    width: 40%;
+    margin:30px auto;
+}

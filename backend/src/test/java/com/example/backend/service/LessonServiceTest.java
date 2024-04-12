@@ -184,5 +184,24 @@ class LessonServiceTest {
 
         verify(lessonRepository, times(1)).save(lesson);
     }
+    @Test
+    void testDeleteMessage() {
+        // GIVEN
+        String lessonId = "1";
+        MessageDTO messageToRemove = new MessageDTO("description", new Student());
+        List<MessageDTO> messageList = new ArrayList<>();
+        messageList.add(messageToRemove);
+        Lesson lesson = new Lesson();
+        lesson.setId(lessonId);
+        lesson.setMessageList(messageList);
 
+        // WHEN
+        when(lessonRepository.findById(anyString())).thenReturn(Optional.of(lesson));
+        lessonService.deleteMessage(lessonId, messageToRemove);
+
+        // THEN
+        assertTrue(lesson.getMessageList().isEmpty());
+
+        verify(lessonRepository).save(lesson);
+    }
 }

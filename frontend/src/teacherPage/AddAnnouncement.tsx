@@ -2,6 +2,8 @@ import TeacherNavbar from "./TeacherNavbar.tsx";
 import {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {Attendance, AttendanceStatus, Lesson} from "../types/Lesson.ts";
 import LessonService from "../service/LessonService.ts";
+import MuiAlert from '@mui/material/Alert';
+
 import {
     Box, Button,
     FormControl,
@@ -9,7 +11,8 @@ import {
     MenuItem,
     OutlinedInput,
     Select,
-    SelectChangeEvent
+    SelectChangeEvent,
+    Snackbar
 } from "@mui/material";
 import './AddAnnouncement.css';
 const lessonService = new LessonService();
@@ -27,6 +30,7 @@ export default function AddAnnouncement(props : Readonly<Props>){
         messageList: []
     });
     const [form, setForm] = useState<Attendance>({ description: '', status: AttendanceStatus.LOW });
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         lessonService.getAllLessons().then((response) => {
@@ -70,19 +74,26 @@ export default function AddAnnouncement(props : Readonly<Props>){
         e.preventDefault();
         await lessonService.saveNewAnnouncement(selectedLesson.id,form);
         setForm({ description: '', status: AttendanceStatus.LOW });
+        setOpen(true);
     }
+
+    const handleClose = () => {
+        setOpen(false);
+    };
     return (
         <>
         <TeacherNavbar logout={props.logout}></TeacherNavbar>
-            <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '80px', padding: '20px' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '30px', padding: '20px' }}>
                 <form onSubmit={handleOnSubmit} className="custom-form">
+                    <h3>Add Announcement</h3>
+                    <br/>
                     <FormControl className="form-style">
                         <InputLabel>Lessons</InputLabel>
                         <Select
                             value={selectedLesson.id}
                             onChange={handleLessonChange}
-                            input={<OutlinedInput label="Lessons" />}
-                            sx={{ width: '100%', textAlign: 'center' }}
+                            input={<OutlinedInput label="Lessons"/>}
+                            sx={{width: '100%', textAlign: 'center'}}
                         >
                             {lessons.map((lesson) => (
                                 <MenuItem
@@ -93,9 +104,9 @@ export default function AddAnnouncement(props : Readonly<Props>){
                                 </MenuItem>
                             ))}
                         </Select>
-                        <br />
+                        <br/>
                         <label htmlFor="description">Description:</label>
-                        <br />
+                        <br/>
                         <textarea
                             id="description"
                             name="description"
@@ -104,16 +115,27 @@ export default function AddAnnouncement(props : Readonly<Props>){
                             required
                             className="custom-textarea"
                         />
-                        <br />
+                        <br/>
                         <label htmlFor="status">Status:</label>
-                        <br />
+                        <br/>
                         <select value={form.status} onChange={handleChangeAttendanceStatus} className="custom-select">
                             {Object.keys(AttendanceStatus).map((status) => (
-                                <option key={status} value={AttendanceStatus[status as keyof typeof AttendanceStatus]}>{status}</option>
+                                <option key={status}
+                                        value={AttendanceStatus[status as keyof typeof AttendanceStatus]}>{status}</option>
                             ))}
                         </select>
-                        <br />
+                        <br/>
                         <Button variant="contained" type="submit" className="custom-button">Add Announcement</Button>
+                        <Snackbar
+                            anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                            open={open}
+                            autoHideDuration={6000}
+                            onClose={handleClose}
+                        >
+                            <MuiAlert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                                Announcement saved successfully!
+                            </MuiAlert>
+                        </Snackbar>
                     </FormControl>
                 </form>
             </Box>

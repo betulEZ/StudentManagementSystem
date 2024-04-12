@@ -10,6 +10,7 @@ import SendIcon from '@mui/icons-material/Send';
 import Typography from "@mui/material/Typography";
 import StudentService from "../service/StudentService.ts";
 import {Student} from "../types/Student.ts";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export type Props = {
     studentId: string,
@@ -59,6 +60,24 @@ export default function Chat(props: Readonly<Props>){
             console.error("Error while saving or fetching messages:", error);
         }
     }
+    const handleDelete = async (lessonId: string, message: Message) => {
+        if (lessonId) {
+            await lessonService.deleteMessage(lessonId, message);
+            const updatedLessons = updateLessons(lessonId, message);
+            setLessons(updatedLessons);
+            const response = await lessonService.getAllMessageByLessonId(lessonId);
+            setMessages(response.data);
+            setDescription('');
+        }
+    }
+    const updateLessons = (lessonId: string, message: Message) => {
+        return lessons.map(lesson => {
+            if (lesson.id === lessonId) {
+                lesson.messageList = lesson.messageList.filter(a => a !== message);
+            }
+            return lesson;
+        });
+    }
 
     return (
         <>
@@ -73,7 +92,19 @@ export default function Chat(props: Readonly<Props>){
                                         <Typography variant="body1" sx={{fontSize: '1.2rem'}}>
                                             {message.message}
                                         </Typography>
+
                                     </Paper>
+                                    {message.student.id === props.studentId && (
+                                        <IconButton onClick={() => {
+                                            if (lessonId) {
+                                                handleDelete(lessonId, message);
+                                            } else {
+                                                console.error("lessonId parametresi belirtilmemiş veya tanımsız");
+                                            }
+                                        }}>
+                                            <DeleteIcon />
+                                        </IconButton>
+                                    )}
                                 </Box>
                                 <Typography variant="body2" sx={{fontSize: '0.8rem', textAlign: message.student.id === props.studentId ? 'right' : 'left', color: 'gray'}}>
                                     {message.student.name}

@@ -1,7 +1,7 @@
 .box{
     display: flex;
     justify-content: center;
-    margin-top: 90px;
+    margin-top: 30px;
 }
 .box form{
     width: 400px;
@@ -12,7 +12,7 @@
     text-align: center;
 }
 .input{
-    width: 100%;
+    width:95%;
     margin-bottom: 10px;
     border: 1px solid lightgrey;
     border-radius: 5px;

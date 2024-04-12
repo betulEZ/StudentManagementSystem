@@ -25,4 +25,9 @@ export default class LessonService {
     saveNewMessage(lessonId : string ,message:Message) {
         return axios.post(`/api/lessons/message/${lessonId}`,message);
     }
+    deleteMessage(lessonId : string ,message:Message) {
+        return axios.delete(`/api/lessons/delete-message/${lessonId}`, {
+            data: message
+        });
+    }
 }
