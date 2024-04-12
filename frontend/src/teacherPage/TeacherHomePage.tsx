@@ -84,7 +84,7 @@ export default function TeacherHomePage(props : Readonly<Props>) {
                         </CardContent>
                     </Card>
                 </div>
-                <h2>Announcement List</h2>
+                <h3>Announcement List</h3>
                 {lessons && lessons.length > 0 && lessons.map((lesson) => (
                     <div key={lesson.id}>
                         {lesson.attendanceList && lesson.attendanceList.length > 0 && lesson.attendanceList.map((attendance) => (

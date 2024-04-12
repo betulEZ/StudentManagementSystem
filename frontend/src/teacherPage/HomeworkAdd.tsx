@@ -5,7 +5,7 @@ import {
     MenuItem,
     OutlinedInput,
     Select,
-    SelectChangeEvent,
+    SelectChangeEvent, Snackbar,
     TextField
 } from "@mui/material";
 import LessonService from "../service/LessonService.ts";
@@ -15,6 +15,7 @@ import {Homework} from "../types/Homework.ts";
 import HomeworkService from "../service/HomeworkService.ts";
 import TeacherNavbar from "./TeacherNavbar.tsx";
 import './HomeworkAdd.css';
+import MuiAlert from "@mui/material/Alert";
 
 const lessonService = new LessonService();
 const homeworkService = new HomeworkService();
@@ -42,7 +43,7 @@ export default function HomeworkAdd(props : Readonly<Props>) {
             messageList: []
         }
     });
-
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         lessonService.getAllLessons().then((response) => {
@@ -100,13 +101,19 @@ export default function HomeworkAdd(props : Readonly<Props>) {
                 attendanceList: [{ description: '', status: AttendanceStatus.LOW }],
                 messageList: []
         } } );
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
     };
 
     return (
         <>
             <TeacherNavbar logout={props.logout}/>
-            <Box className="box" >
-                <form onSubmit={handleOnSubmit} >
+            <Box className="box">
+                <form onSubmit={handleOnSubmit}>
+                    <h3>Add Homework</h3>
+                    <br/>
                     <FormControl className="form-control">
                         <InputLabel>Lessons</InputLabel>
                         <Select
@@ -128,7 +135,7 @@ export default function HomeworkAdd(props : Readonly<Props>) {
                         <label htmlFor="title">Title:</label>
                         <br/>
                         <input type="text" id="title" name="title" value={formData.title} onChange={handleChangeTitle}
-                               required className="input" />
+                               required className="input"/>
                         <br/>
                         <label htmlFor="description">Description:</label>
                         <br/>
@@ -153,6 +160,16 @@ export default function HomeworkAdd(props : Readonly<Props>) {
                         />
                         <br/>
                         <Button variant="contained" type="submit">Add Homework</Button>
+                        <Snackbar
+                            anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                            open={open}
+                            autoHideDuration={6000}
+                            onClose={handleClose}
+                        >
+                            <MuiAlert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                                Homework saved successfully!
+                            </MuiAlert>
+                        </Snackbar>
                     </FormControl>
                 </form>
             </Box>

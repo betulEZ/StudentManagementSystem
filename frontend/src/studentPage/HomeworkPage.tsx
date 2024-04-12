@@ -31,10 +31,10 @@ export default function HomeworkPage(props : Readonly<Props>){
         <>
             <StudentNavbar  studentId={props?.studentId ?? ''} logout={props.logout} setLessons={setLessons}/>
             <div className="container">
+
+                <h3>Homework List</h3>
                 <br/>
                 <br/>
-                <br/>
-                <h1>Homework List</h1>
                 <table>
                     <thead>
                     <tr>

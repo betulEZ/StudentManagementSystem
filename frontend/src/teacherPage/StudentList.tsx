@@ -90,6 +90,7 @@ export default function StudentList(props : Readonly<Props>){
         <>
             <TeacherNavbar logout={props.logout}/>
             <div className="table">
+                <h3>Student List</h3>
                 <TableContainer component={Paper}>
                     <Table aria-label="simple table">
                         <TableHead>
@@ -128,7 +129,7 @@ export default function StudentList(props : Readonly<Props>){
                                         />
                                     </TableCell>
                                     <TableCell align="center" onClick={() => handleDelete(student.id)}>
-                                        <Button variant="outlined">Delete </Button>
+                                        <Button variant="outlined" style={{ color: 'red', borderColor: 'red' }}>Delete</Button>
                                     </TableCell>
                                 </TableRow>
                             ))}
