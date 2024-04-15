@@ -2,6 +2,7 @@ import axios from "axios";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './LoginPage.css';
+
 type LoginPageProps = {
     fetchMe: () => void;
 }
@@ -37,14 +38,20 @@ export default function LoginPage(props : Readonly<LoginPageProps>) {
             <form className="login-form" onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="username">Username</label>
-                    <input id="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+                    <input id="username" placeholder="Username" value={username}
+                           onChange={(e) => setUsername(e.target.value)}/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="password">Password</label>
-                    <input id="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} type="password" />
+                    <input id="password" placeholder="Password" value={password}
+                           onChange={(e) => setPassword(e.target.value)} type="password"/>
                 </div>
                 <button>Login</button>
             </form>
+            <div className="photo">
+                <img src="/src/image/student.jpg" alt="Login"/>
+            </div>
         </div>
+
     );
 }
