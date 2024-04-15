@@ -52,7 +52,7 @@ export default function Announcement(props: Readonly<Props>){
         <>
             <StudentNavbar studentId={props?.studentId ?? ''} logout={props.logout} setLessons={setLessons}/>
             <div className="div-scope">
-                <h3>Announcements</h3>
+                <h3>Announcements List</h3>
                 {announcement.map((item) => (
                     <Card key={item.description} style={{
                         marginBottom: '10px',

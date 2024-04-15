@@ -50,6 +50,9 @@ public class LessonService {
     public AttendanceDTO saveAttendance(String lessonId, AttendanceDTO attendance) {
         Lesson lesson=lessonRepository.findById(lessonId).orElseThrow();
 
+        if (lesson.getAttendanceList() == null) {
+            lesson.setAttendanceList(new ArrayList<>());
+        }
         List<AttendanceDTO> attendanceList = lesson.getAttendanceList();
         attendanceList.add(attendance);
         lesson.setAttendanceList(attendanceList);
