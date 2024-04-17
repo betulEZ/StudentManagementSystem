@@ -74,7 +74,7 @@ export default function App() {
                         )}
                     </>
                 )}/>
-                <Route path={"/register"} element={<RegisterPage/>}/>
+                <Route path={"/register"} element={<RegisterPage fetchMe={fetchMe} />} />
                 <Route path={"/login"} element={<LoginPage fetchMe={fetchMe} />} />
                 <Route path="/teacher" element={<TeacherHomePage logout={logout}/>} />
                 <Route path="/teacher/studentlist" element={<StudentList logout={logout}/>}  />
