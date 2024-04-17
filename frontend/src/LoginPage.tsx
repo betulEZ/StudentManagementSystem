@@ -2,7 +2,7 @@ import axios from "axios";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './LoginPage.css';
-
+import studentImage from "../src/image/student.jpg";
 type LoginPageProps = {
     fetchMe: () => void;
 }
@@ -49,7 +49,7 @@ export default function LoginPage(props : Readonly<LoginPageProps>) {
                 <button>Login</button>
             </form>
             <div className="photo">
-                <img src="../src/image/student.jpg" alt="Login"/>
+                <img src={studentImage} alt="Login"/>
             </div>
         </div>
 
