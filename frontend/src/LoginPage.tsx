@@ -49,7 +49,7 @@ export default function LoginPage(props : Readonly<LoginPageProps>) {
                 <button>Login</button>
             </form>
             <div className="photo">
-                <img src="/src/image/student.jpg" alt="Login"/>
+                <img src="../src/image/student.jpg" alt="Login"/>
             </div>
         </div>
 
