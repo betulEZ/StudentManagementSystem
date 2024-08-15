@@ -21,7 +21,7 @@ Students can chat with each other or delete their chat within each course.
 
 ![chat](https://github.com/user-attachments/assets/f413cd15-7d30-40d1-87a8-914e5e93842e)
 
-When a teacher logs in, they can see the total number of students and teachers. They can also view or delete announcements for all courses.
+When a teacher logs in, they can see the total number of students and lessons. They can also view or delete announcements for all courses.
 
 ![projekt_new](https://github.com/user-attachments/assets/57c8765f-0d1b-4c3c-8770-91a56520194e)
 
@@ -32,3 +32,17 @@ Teacher can add new announcement or homework.
 Teacher can view student list, make changes to student information, add new student, or delete a student.
 
 ![studentList](https://github.com/user-attachments/assets/1a30e1a6-f10d-4bc7-94ad-38952c673642)
+
+
+## Applied Technologies and Tools
+
+- Java Spring Boot
+- React
+- TypeScript
+- HTML/CSS
+- JUnit
+- Integration Tests
+- Docker
+- MongoDB
+- Agile Methods
+- REST API
